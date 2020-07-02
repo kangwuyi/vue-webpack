@@ -13,17 +13,18 @@ module.exports = {
     target: 'web',
     mode: doMode,
     entry: {
+        element: ['./public/js/element.js'],
         element_ui: ['./public/css/element.css'],
         public_style: ['./public/css/reset.css','./public/css/common.css']
     },
     output: {
         path: dllPath,
-        filename: '[name].dll.js',
+        filename: '[name].dll.'+(doDev?'':'min')+'.js',
         library: '[name]_[hash]'
     },
     module: {
         rules: [
-            {
+            /*{
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader',
@@ -39,7 +40,7 @@ module.exports = {
                     }
                 },
                 exclude: ['/node_module/', '/public/css/']
-            },
+            },*/
             {
                 test: /\.(sa|sc|c|le)ss$/,
                 use: [

@@ -13,6 +13,7 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 var wgentry = require('webpack-glob-entry'); // 模糊匹配
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const ManifestPlugin = require('webpack-manifest-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 /*const middleware = require('webpack-dev-middleware');
 const instance = middleware(compiler);*/
 const doDev = process.env.NODE_ENV !== 'production';
@@ -88,12 +89,12 @@ const externalConfig = [
         scope: 'axios',
         js: 'https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'
     },
-    {
+    /*{
         name: 'element-ui',
         scope: 'ELEMENT',
         js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js',
-        // css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
-    },
+        css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
+    },*/
 ];
 /**
  * clientConfig
@@ -115,7 +116,7 @@ var clientConfig = {
         main: ['./public/js/index.js', './public/js/info.js', './public/js/list.js'],
         get: './public/js/get/body_parts_all.js',
         //main_style: Object.values(wgentry('./public/scss/*.scss')),
-        main_style: [ './public/scss/layout.scss','./public/scss/index.scss'],
+        main_style: ['./public/scss/layout.scss', './public/scss/index.scss'],
     },
     output: {
         publicPath: './',
@@ -160,8 +161,15 @@ var clientConfig = {
                      * style-loader
                      * @description
                      */
-                    {
+                    /*{
                         loader: 'style-loader'
+                    },*/
+                    /**
+                     * vue-style-loader
+                     * @description
+                     */
+                    {
+                        loader: 'vue-style-loader'
                     },
                     /**
                      * MiniCssExtractPlugin.loader
@@ -227,12 +235,14 @@ var clientConfig = {
                          * sass-loader
                          * @description 解析 scss
                          * @param outputStyle {string} 'compressed' 压缩
+                         * @param indentedSyntax {boolean} 缩进的sass语法
                          */
                         loader: 'sass-loader',
                         options: {
                             sourceMap: doDev,
                             sassOptions: {
                                 outputStyle: false,
+                                indentedSyntax: true
                             },
                         },
                     },
@@ -296,6 +306,30 @@ var clientConfig = {
 
             },
             {
+                test: /\.vue$/,
+                use: [
+                    /**
+                     * vue-loader
+                     * @description
+                     */
+                    {
+                        loader: 'vue-loader',
+                    }
+                ]
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    /**
+                     * handlebars-loader
+                     * @description
+                     */
+                    {
+                        loader: 'handlebars-loader',
+                    }
+                ]
+            },
+            /*{
                 test: /\.ejs$/,
                 use: [
                     {
@@ -307,15 +341,15 @@ var clientConfig = {
                             }
                         }
                     },
-                    /*{
+                    /!*{
                         loader: 'underscore-template-loader',
                         query: {
                             interpolate: '\\{\\{\\{\\[(.+?)\\]\\}\\}\\}',
                             evaluate: '\\{%([\\s\\S]+?)%\\}\\}\\}',
                             escape: '\\{\\{\\{\\{(.+?)\\}\\}\\}\\}'
                         }
-                    },*/
-                    /*{
+                    },*!/
+                    /!*{
                         loader: 'ejs-html-loader',
                         options: {
                             title: 'The Ant: An Introduction',
@@ -323,8 +357,8 @@ var clientConfig = {
                             episode: 9,
                             production: process.env.ENV === 'production'
                         },
-                    },*/
-                    /*{
+                    },*!/
+                    /!*{
                         use: [{
                             loader: 'ejs-loader?variable="data"',
                             options: {
@@ -333,10 +367,10 @@ var clientConfig = {
                                 evaluate: '\\[\\[\\[(.+?)\\]\\]\\]'
                             }
                         }]
-                    },*/
+                    },*!/
                 ]
 
-            },
+            },*/
         ]
     },
     plugins: [
@@ -391,9 +425,13 @@ var clientConfig = {
          * @param 4 {array} 插入文件
          * @param 5 {array} 插入 cdn
          */
-        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['main', 'get', 'main_style'], externalConfig)),
-        new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.ejs', '首页', ['main'], externalConfig)),
-        new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.ejs', '首页', ['main'], externalConfig)),
+        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.hbs', '首页', ['main', 'get', 'main_style'], externalConfig)),
+        //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['main'], externalConfig)),
+       // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['main'], externalConfig)),
+        /**
+         *
+         */
+        new VueLoaderPlugin(),
         /**
          * DllReferencePlugin
          * @description 加载 dll 组件
@@ -410,6 +448,10 @@ var clientConfig = {
             context: __dirname,
             manifest: require('./public/dll/public_style-manifest.json')
         }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/element-manifest.json')
+        }),
         /**
          * AddAssetHtmlPlugin
          * @description dll 组件插入 html 文档
@@ -417,7 +459,7 @@ var clientConfig = {
          */
         new AddAssetHtmlPlugin([
             {
-                filepath: path.resolve(__dirname, './public/dll/*.dll.css'),
+                filepath: path.resolve(__dirname, './public/dll/*.dll.min.css'),
                 outputPath: 'dll',
                 publicPath: path.posix.join('./', 'dll'),
                 includeSourcemap: doDev,
@@ -428,7 +470,7 @@ var clientConfig = {
                 },*/
             },
             {
-                filepath: path.resolve(__dirname, './public/dll/*.dll.js'),
+                filepath: path.resolve(__dirname, './public/dll/*.dll.min.js'),
                 outputPath: 'dll',
                 publicPath: path.posix.join('./', 'dll'),
                 includeSourcemap: doDev,
@@ -472,6 +514,14 @@ var clientConfig = {
         new webpack.HotModuleReplacementPlugin(),
     ],
     /**
+     * 解决import Vue from 'vue';
+     */
+    /*resolve : {
+        alias : {
+            vue : 'vue/dist/vue.js'
+        }
+    },*/
+    /**
      * devServer
      * @description 配置 webpack 开发服务功能
      * @param progress {boolean} 如果为 true ，开启虚拟服务器时，为你的代码进行压缩。加快开发流程和优化的作用
@@ -490,6 +540,7 @@ var clientConfig = {
         //host: '0.0.0.0',
         //hotOnly: true,
         historyApiFallback: true,
+        watchContentBase : true,
         hot: true
     },
     optimization: {
