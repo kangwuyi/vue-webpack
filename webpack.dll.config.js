@@ -13,34 +13,19 @@ module.exports = {
     target: 'web',
     mode: doMode,
     entry: {
-        element: ['./public/js/element.js'],
+        //element: ['./public/js/element.js'],
+        //element: ["element-ui"],
+        axios: ["./public/js/axios.min.js"],
         element_ui: ['./public/css/element.css'],
-        public_style: ['./public/css/reset.css','./public/css/common.css']
+        public_style: ['./public/css/reset.css', './public/css/common.css']
     },
     output: {
         path: dllPath,
-        filename: '[name].dll.'+(doDev?'':'min')+'.js',
+        filename: '[name].dll.' + (doDev ? '' : 'min') + '.js',
         library: '[name]_[hash]'
     },
     module: {
         rules: [
-            /*{
-                test: /\.js$/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {  // 指定参数
-                        presets: [
-                            ['@babel/preset-env', {
-                                targets: {
-                                    browsers: ['> 1%', 'last 2 version']
-                                }
-                            }]
-
-                        ]
-                    }
-                },
-                exclude: ['/node_module/', '/public/css/']
-            },*/
             {
                 test: /\.(sa|sc|c|le)ss$/,
                 use: [

@@ -3,19 +3,9 @@
 <head>
     <meta charset="utf-8">
     <!-- 引入样式 -->
-    <% htmlWebpackPlugin.options.cdnConfig.forEach(function(item){ if(item.css){ %>
-        <link href="<%= item.css %>" rel="stylesheet"/>
-    <% }}) %>
 </head>
 <body>
 <%- include common/test.ejs -%>
-<div id="indexPage" ref="pageContent">
-
-
-</div>
-<% htmlWebpackPlugin.options.cdnConfig.forEach(function(item){ if(item.js && !htmlWebpackPlugin.options.onlyCss){ %>
-    <script type="text/javascript" src="<%= item.js %>"></script>
-<% }}) %>
-
+<div id="app" ref="pageContent"></div>
 </body>
 </html>

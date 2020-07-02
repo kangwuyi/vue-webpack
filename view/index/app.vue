@@ -1,25 +1,14 @@
 <template>
     <div>
-        <hr />
-        <!--留坑，非常重要-->
-        <router-view></router-view>
-        <hr />
+        <router-view class="index" name="Index"></router-view>
     </div>
 </template>
 
 <script>
-
     export default {
-        data(){
-            return{
-            }
-        },
-        methods:{
-
-        }
+        name: "App"
     }
 </script>
-
 <style scoped>
-    .main{height: 100px;}
+
 </style>

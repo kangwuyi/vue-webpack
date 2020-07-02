@@ -58,7 +58,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
             useShortDoctype: true, //使用短的文档类型，默认false
             //attrs: ['img:src']
         },
-        cdnConfig: cdnConfig, // cdn配置
+        // cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
         /*chunksSortMode: function (chunk1, chunk2) {
             var order = ['common', 'public', 'index'];
@@ -77,7 +77,7 @@ const externalConfig = [
     {
         name: 'vue',
         scope: 'Vue',
-        js: 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js'
+        js: 'https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.min.js'
     },
     /*{
         name: 'vue-router',
@@ -89,12 +89,12 @@ const externalConfig = [
         scope: 'axios',
         js: 'https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'
     },
-    {
+    /*{
         name: 'element-ui',
         scope: 'ELEMENT',
-        js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js',
+        js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.1/index.js',
         //css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
-    },
+    },*/
 ];
 /**
  * clientConfig
@@ -454,10 +454,10 @@ var clientConfig = {
             context: __dirname,
             manifest: require('./public/dll/public_style-manifest.json')
         }),
-        /*new webpack.DllReferencePlugin({
+        new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./public/dll/element-manifest.json')
-        }),*/
+            manifest: require('./public/dll/axios-manifest.json')
+        }),
         /**
          * AddAssetHtmlPlugin
          * @description dll 组件插入 html 文档
@@ -475,17 +475,17 @@ var clientConfig = {
                     nomodule: true,
                 },*/
             },
-            /*{
-                filepath: path.resolve(__dirname, './public/dll/!*.dll.min.js'),
+            {
+                filepath: path.resolve(__dirname, './public/dll/*.dll.min.js'),
                 outputPath: 'dll',
                 publicPath: path.posix.join('./', 'dll'),
                 includeSourcemap: doDev,
                 hash: true,
                 typeOfAsset: 'js',
-                /!*attributes: {
+                /*attributes: {
                     nomodule: true,
-                },*!/
-            }*/
+                },*/
+            }
         ]),
         /**
          * HtmlCriticalWebpackPlugin
@@ -522,9 +522,11 @@ var clientConfig = {
     /**
      * 解决import Vue from 'vue';
      */
-    resolve : {
-        alias : {
-            vue : 'vue/dist/vue.js'
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': path.resolve('view'),
         }
     },
     /**

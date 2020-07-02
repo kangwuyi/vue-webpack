@@ -1,37 +1,46 @@
 <template>
-    <div class="box">ddd
-        <el-menu default-active="1" class="b-nav ddfff" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
-                 :collapse-transition="false">
-            <el-submenu index="1" show-timeout="1" hide-timeout="1" popper-append-to-body="true">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span slot="title">导航一</span>
+    <div class="box">
+        <el-aside id="NavMenu">
+            <el-menu class="b-nav"
+                     @open="handleOpen"
+                     @close="handleClose"
+                     :default-active="$route.path"
+                     :collapse="isCollapse"
+                     :collapse-transition="false">
+                <template v-bind:index="item.id"
+                          v-for="item in Body_parts_all" >
+                    <el-menu-item index="4">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">导航四</span>
+                    </el-menu-item>
                 </template>
-            </el-submenu>
-        </el-menu>
+            </el-menu>
+        </el-aside>
     </div>
 </template>
 <script>
-
+    import axios from "axios";
     import BS from "../../public/js/common/BinarySearch.js";
 
     export default {
+        name: "NavMenu",
         data: function () {
             return {
+                inputSearch: '',
+                activeIndex: '1',
                 isCollapse: true,
                 Body_parts_all: {},
-                rootMenu:false
+                rootMenu: {}
             }
         },
         // 监听路由，每次进入页面调用方法，放在method里
         mounted() {
-            console.log(this);
-            //this.renderData();
+            this.renderData();
         },
 
         methods: {
             renderData() {
-                let _self = this;//console.log(_self);
+                let _self = this;
                 axios.get('http://apiv2.chujingyi.cn/v2/body_parts/all').then((req) => {
                     let BPA = req.data.data.list;
                     let publicSrc = '../../noimgs/';
