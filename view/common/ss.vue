@@ -11,9 +11,8 @@
         }
     }
 </script>
-<style>
-    p {
-        font-size: 2em;
-        text-align: center;
+<style lang="scss" rel="stylesheet/scss" scoped>
+    a {
+        color: white;
     }
 </style>

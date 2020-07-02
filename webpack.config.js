@@ -242,7 +242,7 @@ var clientConfig = {
                             sourceMap: doDev,
                             sassOptions: {
                                 outputStyle: false,
-                                indentedSyntax: true
+                                // indentedSyntax: true
                             },
                         },
                     },
@@ -314,6 +314,12 @@ var clientConfig = {
                      */
                     {
                         loader: 'vue-loader',
+                        /*options: {
+                            loaders: {
+                                'scss': 'vue-style-loader!css-loader!sass-loader',
+                                'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                            }
+                        }*/
                     }
                 ]
             },
@@ -516,11 +522,11 @@ var clientConfig = {
     /**
      * 解决import Vue from 'vue';
      */
-    /*resolve : {
+    resolve : {
         alias : {
             vue : 'vue/dist/vue.js'
         }
-    },*/
+    },
     /**
      * devServer
      * @description 配置 webpack 开发服务功能
