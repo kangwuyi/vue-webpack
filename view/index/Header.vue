@@ -1,5 +1,6 @@
+
 <template>
-    <el-header id="header">
+    <div>
         <div class="h-top l36 clearfix box">
             <div class="pull-left h-phone c-green mr40">
                 <span></span>
@@ -16,7 +17,8 @@
         <div class="clearfix box">
 
         </div>
-    </el-header>
+
+    </div>
 </template>
 
 <script>
@@ -24,9 +26,12 @@
     import BS from "../../public/js/common/BinarySearch.js";
 
     export default {
-        name: "Header",
+        name: "ly-header",
         data: function () {
-            return {}
+            return {
+                inputSearch: '',
+                activeIndex: '1',
+            }
         },
         // 监听路由，每次进入页面调用方法，放在method里
         mounted() {

@@ -23,11 +23,9 @@
     import BS from "../../public/js/common/BinarySearch.js";
 
     export default {
-        name: "NavMenu",
+        name: "ly-nav-menu",
         data: function () {
             return {
-                inputSearch: '',
-                activeIndex: '1',
                 isCollapse: true,
                 Body_parts_all: {},
                 rootMenu: {}

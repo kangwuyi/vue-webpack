@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import IndexMain from "@/index/Main.vue";
 import NavMenu from "@/index/NavMenu.vue";
 
 const routerPush = Router.prototype.push
@@ -11,14 +12,14 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
-        /*{ path: "/",
+        { path: "/",
             redirect: "/index",
             hidden: true,
             children: []
-        },*/
+        },
         {
-            path: "/",
-            component: NavMenu,
+            path: "/index",
+            components: {index_main: IndexMain},
         },
     ]
 })

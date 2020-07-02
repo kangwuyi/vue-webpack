@@ -2,7 +2,7 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 
 import App from '@/index/app.vue';
-import router from '../js/router/index.js'
+import router from '@/router/index.js'
 
 Vue.use(ElementUI);
 
@@ -11,11 +11,13 @@ new Vue({
     el: '#app',
     data:function(){
         return {
+            inputSearch: '',
+            activeIndex: '1'
         }
     },
     render: c => c(App),
     router,
-    template:'<App></App>',
+    template: "<App/>",
     methods: {},
     components: {
         App
