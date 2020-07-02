@@ -89,12 +89,12 @@ const externalConfig = [
         scope: 'axios',
         js: 'https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'
     },
-    /*{
+    {
         name: 'element-ui',
         scope: 'ELEMENT',
         js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js',
-        css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
-    },*/
+        //css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
+    },
 ];
 /**
  * clientConfig
@@ -113,8 +113,8 @@ var clientConfig = {
         index: './public/js/index.js',
         info: './public/js/info.js',
         list: './public/js/list.js',
-        main: ['./public/js/index.js', './public/js/info.js', './public/js/list.js'],
-        get: './public/js/get/body_parts_all.js',
+        main: ['./public/js/index.js'],
+        //get: './public/js/get/body_parts_all.js',
         //main_style: Object.values(wgentry('./public/scss/*.scss')),
         main_style: ['./public/scss/layout.scss', './public/scss/index.scss'],
     },
@@ -323,19 +323,19 @@ var clientConfig = {
                     }
                 ]
             },
-            {
+            /*{
                 test: /\.hbs$/,
                 use: [
-                    /**
+                    /!**
                      * handlebars-loader
                      * @description
-                     */
+                     *!/
                     {
                         loader: 'handlebars-loader',
                     }
                 ]
-            },
-            /*{
+            },*/
+            {
                 test: /\.ejs$/,
                 use: [
                     {
@@ -347,15 +347,15 @@ var clientConfig = {
                             }
                         }
                     },
-                    /!*{
+                    /*{
                         loader: 'underscore-template-loader',
                         query: {
                             interpolate: '\\{\\{\\{\\[(.+?)\\]\\}\\}\\}',
                             evaluate: '\\{%([\\s\\S]+?)%\\}\\}\\}',
                             escape: '\\{\\{\\{\\{(.+?)\\}\\}\\}\\}'
                         }
-                    },*!/
-                    /!*{
+                    },*/
+                    /*{
                         loader: 'ejs-html-loader',
                         options: {
                             title: 'The Ant: An Introduction',
@@ -363,8 +363,8 @@ var clientConfig = {
                             episode: 9,
                             production: process.env.ENV === 'production'
                         },
-                    },*!/
-                    /!*{
+                    },*/
+                    /*{
                         use: [{
                             loader: 'ejs-loader?variable="data"',
                             options: {
@@ -373,10 +373,10 @@ var clientConfig = {
                                 evaluate: '\\[\\[\\[(.+?)\\]\\]\\]'
                             }
                         }]
-                    },*!/
+                    },*/
                 ]
 
-            },*/
+            },
         ]
     },
     plugins: [
@@ -431,7 +431,7 @@ var clientConfig = {
          * @param 4 {array} 插入文件
          * @param 5 {array} 插入 cdn
          */
-        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.hbs', '首页', ['main', 'get', 'main_style'], externalConfig)),
+        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['main', 'main_style'], externalConfig)),
         //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['main'], externalConfig)),
        // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['main'], externalConfig)),
         /**
@@ -454,10 +454,10 @@ var clientConfig = {
             context: __dirname,
             manifest: require('./public/dll/public_style-manifest.json')
         }),
-        new webpack.DllReferencePlugin({
+        /*new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require('./public/dll/element-manifest.json')
-        }),
+        }),*/
         /**
          * AddAssetHtmlPlugin
          * @description dll 组件插入 html 文档
@@ -475,17 +475,17 @@ var clientConfig = {
                     nomodule: true,
                 },*/
             },
-            {
-                filepath: path.resolve(__dirname, './public/dll/*.dll.min.js'),
+            /*{
+                filepath: path.resolve(__dirname, './public/dll/!*.dll.min.js'),
                 outputPath: 'dll',
                 publicPath: path.posix.join('./', 'dll'),
                 includeSourcemap: doDev,
                 hash: true,
                 typeOfAsset: 'js',
-                /*attributes: {
+                /!*attributes: {
                     nomodule: true,
-                },*/
-            }
+                },*!/
+            }*/
         ]),
         /**
          * HtmlCriticalWebpackPlugin
@@ -583,7 +583,7 @@ var clientConfig = {
                     except: ['$super', '$', 'exports', 'require']
                 },
                 test: /\.js(\?.*)?$/i,
-                include: ['./public/js/index.js', './public/js/info.js', './public/js/list.js'],
+                include: ['./public/js/index.js'],
                 exclude: ['/node_module/', '/public/imgs/', '/public/scss/', '/public/css/'],
                 chunkFilter: (chunk) => {
                     /**
@@ -630,7 +630,7 @@ var clientConfig = {
          * @param chunks {string} initial 异步代码分割，all 同步代码分割
          * @param minSize {number} 大于该值做代码分割
          */
-        splitChunks: {
+        /*splitChunks: {
             chunks: "all",
             minSize: 3000,
             minChunks: 1,
@@ -646,9 +646,9 @@ var clientConfig = {
                     minSize: 0,         //表示提取公共部分最小的大小
                     priority: 0
                 },
-                /**
+                /!**
                  * @description 打包 node_modules 中的文件
-                 */
+                 *!/
                 vendor: {
                     name: 'vendor',
                     test: /[\\/]node_modules[\\/]/,
@@ -662,7 +662,7 @@ var clientConfig = {
                     enforce: true
                 }
             }
-        }
+        }*/
     },
     /*watch:true,
     watchOptions:{
