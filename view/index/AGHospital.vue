@@ -1,45 +1,42 @@
 <template>
-    <div id="NavMenu">
-        <div class="box box-content">
-            <el-menu class="b-nav el-menu-vertical"
-                     @open="handleOpen"
-                     @close="handleClose"
-                     :default-active="$route.path"
-                     :collapse="isCollapse"
-                     :unique-opened="true"
-                     :collapse-transition="false">
-                <template v-bind:index="item.id"
-                          v-for="item in Body_parts_all">
-                    <el-submenu :index="item.id+''"
-                                :popper-append-to-body="false">
-                        <template slot="title">
-                            <img v-bind:src="item.src" width="20"/>
-                            <span slot="title" class="nav-menu-title">{{item.name}}</span>
-                        </template>
-                        <template v-bind:index="itemChildren.id"
-                                  v-for="itemChildren in item.children">
-                            <el-menu-item :index="itemChildren.id+''" class="nav-menu-child-title">
-                                {{itemChildren.name}}
-                            </el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
-            </el-menu>
-
+    <div id="AGHospital">
+        <div class="box">
+            <div v-for="item in Home_best_hospital">
+                <h3 class="clearfix">
+                    <div class="t-icon"></div>
+                    <span class="t-title">{{item.name}}</span>
+                    <span class="t-info">{{item.nameen}}</span>
+                </h3>
+                <div class="clearfix">
+                    <!-- list -->
+                    <div class="img-list" v-for="childItem in item.child">
+                        <div>
+                            <img v-bind:src="childItem.picture" width="248" height="190"/>
+                            <span>{{childItem.name}}</span>
+                        </div>
+                        <strong>{{childItem.name}}</strong>
+                        <ul>
+                            <li v-for="departmentItem in item.department" :key="departmentItem._id">
+                                <span class="l-name">{{childItem.name}}</span>
+                                <span class="l-num">{{departmentItem.rank}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- list -->
+                </div>
+            </div>
+            <div class="mt40"></div>
         </div>
     </div>
 </template>
 <script>
     import axios from "axios";
-    import BS from "../../public/js/common/BinarySearch.js";
 
     export default {
-        name: "ly-nav-menu",
+        name: "ly-ag-hospital",
         data: function () {
             return {
-                isCollapse: true,
-                Body_parts_all: {},
-                rootMenu: {}
+                Home_best_hospital: {},
             }
         },
         // 监听路由，每次进入页面调用方法，放在method里

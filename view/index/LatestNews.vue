@@ -1,45 +1,61 @@
 <template>
-    <div id="NavMenu">
-        <div class="box box-content">
-            <el-menu class="b-nav el-menu-vertical"
-                     @open="handleOpen"
-                     @close="handleClose"
-                     :default-active="$route.path"
-                     :collapse="isCollapse"
-                     :unique-opened="true"
-                     :collapse-transition="false">
-                <template v-bind:index="item.id"
-                          v-for="item in Body_parts_all">
-                    <el-submenu :index="item.id+''"
-                                :popper-append-to-body="false">
-                        <template slot="title">
-                            <img v-bind:src="item.src" width="20"/>
-                            <span slot="title" class="nav-menu-title">{{item.name}}</span>
-                        </template>
-                        <template v-bind:index="itemChildren.id"
-                                  v-for="itemChildren in item.children">
-                            <el-menu-item :index="itemChildren.id+''" class="nav-menu-child-title">
-                                {{itemChildren.name}}
-                            </el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
-            </el-menu>
-
-        </div>
+    <div id="AGHospital">
+        <div class="box">
+            <div class="bgw">
+                <%- include index/hospitalization_process.ejs -%>
+            </div>
+            <h3 class="clearfix box">
+                <div class="t-icon"></div>
+                <span class="t-title">最新消息</span>
+                <span class="t-info">Latest news</span>
+            </h3>
+            <div class="box clearfix">
+                <div class="list title-lists" id="CuttingedgeinformationOne">
+                    <h2 class="clearfix">
+                        <strong class="sq"></strong>
+                        <span>前沿资讯</span>
+                        <a v-bind:href="Cuttingedgeinformation.href" target="_blank">More>></a>
+                    </h2>
+                    <div>
+                        <img v-bind:src="Cuttingedgeinformation.src" width="223" height="280"/>
+                        <ul>
+                            <li v-for="item in Cuttingedgeinformation.data" :key="item._id">
+                                <a v-bind:href="item.href" target="_blank">
+                                    <span>></span> {{item.title}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list title-lists" id="CuttingedgeinformationTwo">
+                    <h2 class="clearfix">
+                        <strong class="sq"></strong>
+                        <span>前沿资讯</span>
+                        <a v-bind:href="Cuttingedgeinformation2.href" target="_blank">More>></a>
+                    </h2>
+                    <div>
+                        <img v-bind:src="Cuttingedgeinformation2.src" width="223" height="280"/>
+                        <ul>
+                            <li v-for="item in Cuttingedgeinformation2.data" :key="item._id">
+                                <a v-bind:href="item.href" target="_blank">
+                                    <span>></span> {{item.title}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt40"></div>
     </div>
 </template>
 <script>
     import axios from "axios";
-    import BS from "../../public/js/common/BinarySearch.js";
 
     export default {
-        name: "ly-nav-menu",
+        name: "ly-ag-hospital",
         data: function () {
             return {
-                isCollapse: true,
-                Body_parts_all: {},
-                rootMenu: {}
+                Home_best_hospital: {},
             }
         },
         // 监听路由，每次进入页面调用方法，放在method里
