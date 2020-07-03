@@ -15,6 +15,7 @@
                     <a>查看详情>></a>
                 </div>
                 <div class="box-about mr20">
+
                     <img src="noimgs/japanese-hospital@2x.png" width="44" height="44"/>
                     <strong>日本医院</strong>
                     <p>日本看病，底部描述文字修改为提供日本看病相关的医院，医生，案例前沿资讯信息。</p>
@@ -60,6 +61,7 @@
 </template>
 
 <script>
+    import custComp from './custComp';
 
     export default {
         name: "ly-service-items",
@@ -73,14 +75,10 @@
         methods: {
             open() {
                 const h = this.$createElement;
+                // this.index ++
                 this.$msgbox({
                     title: '出国看病费用评估',
-                    message: h('div', null, [
-                        h('h3', null, '出国看病费用评估 '),
-                        h('div', {style: 'color: teal'}, [
-                            h('h5', null, '我想咨询的类型 '),
-                        ])
-                    ]),
+                    message: h(custComp, {key: this.index}),
                     showCancelButton: true,
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

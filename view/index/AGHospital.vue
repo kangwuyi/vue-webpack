@@ -47,29 +47,33 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('http://apiv2.chujingyi.cn/v2/body_parts/all').then((req) => {
-                    let BPA = req.data.data.list;
-                    let publicSrc = '../../noimgs/';
-                    const srcArr = [
-                        {1: publicSrc.concat('head@2x.png')},
-                        {8: publicSrc.concat('chest@2x.png')},
-                        {15: publicSrc.concat('lung@2x.png')},
-                        {22: publicSrc.concat('basin@2x.png')},
-                        {28: publicSrc.concat('overall@2x.png')},
-                        {34: publicSrc.concat('children@2x.png')}
-                    ]
-                    for (let i = 0; i < BPA.length; i++) {
-                        BPA[i]['src'] = BS(srcArr, ('' + BPA[i].id));
+                axios.get('http://apiv2.chujingyi.cn/v2/home/best_hospital').then((req) => {
+                    let BPA = [
+                        {mark: 'AGH', child: [], name: "出国看病-国外最好综合医院", nameen: "Authoritative General Hospital"},
+                        {mark: 'CCH', child: [], name: "肿瘤癌症专科医院", nameen: "Cancer Hospital"},
+                        {mark: 'CRH', child: [], name: "儿童医院", nameen: "Children's Hospital"},
+                        {mark: 'CVH', child: [], name: "心血管专科医院", nameen: "Cardiovascular hospital"},
+                    ];
+                    let reqdata = req.data.data;
+                    for (let i = 0; i < reqdata.length; i++) {
+                        switch (reqdata[i].type_name) {
+                            case reqdata[i].type_name = "综合医院":
+                                BPA[0].child.push(reqdata[i]);
+                                break;
+                            case reqdata[i].type_name = "癌症专科":
+                                BPA[1].child.push(reqdata[i]);
+                                break;
+                            case reqdata[i].type_name = "儿科":
+                                BPA[2].child.push(reqdata[i]);
+                                break;
+                            case reqdata[i].type_name = "心血管专科医院":
+                                BPA[3].child.push(reqdata[i]);
+                                break;
+                            default:
+                        }
                     }
-                    ;console.log(BPA)
-                    _self.Body_parts_all = BPA;
+                    _self.data = BPA;
                 });
-            },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
             }
         },
     }

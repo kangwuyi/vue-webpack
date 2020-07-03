@@ -45,7 +45,6 @@
 
 <script>
     import test from "./test";
-    import axios from "axios";
 
     export default {
         name: "ly-header",
@@ -66,5 +65,7 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
     .el-header {
         height: auto !important;
+        //height: 130px;
+        background: #fff;
     }
 </style>

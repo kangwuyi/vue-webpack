@@ -116,7 +116,7 @@ let clientConfig = {
         index_page_script: ['./public/js/index.js'],
         //get: './public/js/get/body_parts_all.js',
         //main_style: Object.values(wgentry('./public/scss/*.scss')),
-        main_style: ['./public/scss/layout.scss', './public/scss/index.scss'],
+        main_style: ['./public/scss/layout.scss', './public/scss/index.scss', './public/scss/list.scss'],
     },
     output: {
         publicPath: './',

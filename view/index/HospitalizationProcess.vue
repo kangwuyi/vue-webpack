@@ -1,10 +1,10 @@
 <template>
     <div id="HospitalizationProcess">
-        <h3 class="clearfix box">
+        <div class="clearfix box h3-box">
             <div class="t-icon"></div>
-            <span class="t-title">就医流程</span>
+            <h3 class="t-title">出国看病就医流程</h3>
             <span class="t-info">Hospitalization process</span>
-        </h3>
+        </div>
         <div id="process" class="clearfix">
             <a class="process-con">
                 <img src="noimgs/process-phone@2x.png"
@@ -118,5 +118,14 @@
 <style lang="scss" rel="stylesheet/scss">
 div#HospitalizationProcess{
     background: white!important;
+    .h3-box {
+        padding: 40px 0 20px 0;
+
+    }
+
+    h3 {
+        padding: 0;
+        margin-right: 8px;
+    }
 }
 </style>

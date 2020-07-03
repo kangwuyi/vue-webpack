@@ -1,58 +1,56 @@
 <template>
-    <div id="AGHospital">
-        <div class="box">
-            <div class="bgw">
-                <%- include index/hospitalization_process.ejs -%>
-            </div>
-            <h3 class="clearfix box">
-                <div class="t-icon"></div>
-                <span class="t-title">最新消息</span>
-                <span class="t-info">Latest news</span>
-            </h3>
-            <div class="box clearfix">
-                <div class="list title-lists" id="CuttingedgeinformationOne">
-                    <h2 class="clearfix">
-                        <strong class="sq"></strong>
-                        <span>前沿资讯</span>
-                        <a v-bind:href="Cuttingedgeinformation.href" target="_blank">More>></a>
-                    </h2>
-                    <div>
-                        <img v-bind:src="Cuttingedgeinformation.src" width="223" height="280"/>
-                        <ul>
-                            <li v-for="item in Cuttingedgeinformation.data" :key="item._id">
-                                <a v-bind:href="item.href" target="_blank">
-                                    <span>></span> {{item.title}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="list title-lists" id="CuttingedgeinformationTwo">
-                    <h2 class="clearfix">
-                        <strong class="sq"></strong>
-                        <span>前沿资讯</span>
-                        <a v-bind:href="Cuttingedgeinformation2.href" target="_blank">More>></a>
-                    </h2>
-                    <div>
-                        <img v-bind:src="Cuttingedgeinformation2.src" width="223" height="280"/>
-                        <ul>
-                            <li v-for="item in Cuttingedgeinformation2.data" :key="item._id">
-                                <a v-bind:href="item.href" target="_blank">
-                                    <span>></span> {{item.title}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="box">
+        <div class="bgw">
+            <%- include index/hospitalization_process.ejs -%>
+        </div>
+        <div class="clearfix box">
+            <div class="t-icon"></div>
+            <h3 class="t-title">出国看病早知道</h3>
+            <span class="t-info">Latest news</span>
+        </div>
+        <div class="box clearfix">
+            <div class="list title-lists" id="CuttingedgeinformationOne">
+                <h2 class="clearfix">
+                    <strong class="sq"></strong>
+                    <span>前沿资讯</span>
+                    <a v-bind:href="Cuttingedgeinformation.href" target="_blank">More>></a>
+                </h2>
+                <div>
+                    <img v-bind:src="Cuttingedgeinformation.src" width="223" height="280"/>
+                    <ul>
+                        <li v-for="item in Cuttingedgeinformation.data" :key="item._id">
+                            <a v-bind:href="item.href" target="_blank">
+                                <span>></span> {{item.title}}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="mt40"></div>
+            <div class="list title-lists" id="CuttingedgeinformationTwo">
+                <h2 class="clearfix">
+                    <strong class="sq"></strong>
+                    <span>前沿资讯</span>
+                    <a v-bind:href="Cuttingedgeinformation2.href" target="_blank">More>></a>
+                </h2>
+                <div>
+                    <img v-bind:src="Cuttingedgeinformation2.src" width="223" height="280"/>
+                    <ul>
+                        <li v-for="item in Cuttingedgeinformation2.data" :key="item._id">
+                            <a v-bind:href="item.href" target="_blank">
+                                <span>></span> {{item.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
     import axios from "axios";
 
     export default {
-        name: "ly-ag-hospital",
+        name: "ly-latest-news",
         data: function () {
             return {
                 Home_best_hospital: {},
@@ -60,41 +58,30 @@
         },
         // 监听路由，每次进入页面调用方法，放在method里
         mounted() {
-            this.renderData();
+            //this.renderData();
         },
 
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('http://apiv2.chujingyi.cn/v2/body_parts/all').then((req) => {
-                    let BPA = req.data.data.list;
-                    let publicSrc = '../../noimgs/';
-                    const srcArr = [
-                        {1: publicSrc.concat('head@2x.png')},
-                        {8: publicSrc.concat('chest@2x.png')},
-                        {15: publicSrc.concat('lung@2x.png')},
-                        {22: publicSrc.concat('basin@2x.png')},
-                        {28: publicSrc.concat('overall@2x.png')},
-                        {34: publicSrc.concat('children@2x.png')}
-                    ]
-                    for (let i = 0; i < BPA.length; i++) {
-                        BPA[i]['src'] = BS(srcArr, ('' + BPA[i].id));
-                    }
-                    ;console.log(BPA)
-                    _self.Body_parts_all = BPA;
-                });
-            },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
+                axios.all([
+                    axios.get('http://localhost:3000/AuthoritativeGeneralHospital'),
+                    axios.get('http://localhost:3000/AuthoritativeGeneralHospital'),
+                ]).then(axios.spread(function (
+                    AuthoritativeGeneralHospital,
+                    CancerHospital,
+                ) {
+                    _self.NewJoinDoctor = JSONPS(NewJoinDoctor.data);
+                    _self.NewJoinHospital = JSONPS(NewJoinHospital.data);
+                }));
+                return console.log('get data end');
             }
-        },
+
+        }
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
-    div#NavMenu .box-content{
+    div#NavMenu .box-content {
         .el-submenu {
             &.is-opened {
 
@@ -145,8 +132,11 @@
 </style>
 <style lang="scss" rel="stylesheet/scss" scoped>
     div#NavMenu {
-        background: url('../../dist/noimgs/banner.jpg') no-repeat center; height: 370px; background-size: cover;
-        .box-content{
+        background: url('../../dist/noimgs/banner.jpg') no-repeat center;
+        height: 370px;
+        background-size: cover;
+
+        .box-content {
 
             .el-menu-vertical {
                 width: 198px;

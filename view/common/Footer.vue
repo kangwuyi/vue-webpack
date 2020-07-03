@@ -1,4 +1,3 @@
-
 <template>
     <el-footer id="footer" class="pt8">
         <div class="f-div box">
@@ -13,13 +12,7 @@
             <span>大幸砂田橋クリニック</span>
         </div>
         <div class="f-div box">
-            <strong class="w120">美国最新入驻医院:</strong>
-            <span>大幸砂田橋クリニック</span>
-            <span>大幸砂田橋クリニック</span>
-            <span>大幸砂田橋クリニック</span>
-        </div>
-        <div class="f-div box mb4">
-            <strong class="w120">美国最新入住医生:</strong>
+            <strong class="w120">最新更新信息:</strong>
             <span>大幸砂田橋クリニック</span>
             <span>大幸砂田橋クリニック</span>
             <span>大幸砂田橋クリニック</span>
@@ -27,7 +20,8 @@
         <div class="f-line box"></div>
         <div class="clearfix box p20">
             <ul class="f-ul">
-                <li v-for="item in Disease_footer_recommend"><a :key="item.url" v-bind:href="item.url"></a>{{item.name}}</li>
+                <li v-for="item in Disease_footer_recommend"><a :key="item.url" v-bind:href="item.url"></a>{{item.name}}
+                </li>
             </ul>
             <div class="pull-right w120">
                 <img src="noimgs/code.jpg"
@@ -42,11 +36,12 @@
 
 <script>
     import axios from "axios";
+
     export default {
         name: "ly-footer",
         data: function () {
             return {
-                Disease_footer_recommend:{}
+                Disease_footer_recommend: {}
             }
         },
         mounted() {
@@ -63,5 +58,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-
+    #footer {
+        height: auto !important;
+    }
 </style>
