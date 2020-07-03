@@ -24,5 +24,6 @@ hs_err_pid*
 
 # node modules
 node_modules/*
-dist/*.hot-*
+dist/
+!dist/noimgs/
 .idea/*

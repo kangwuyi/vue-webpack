@@ -1,6 +1,7 @@
 <template>
     <div id="list-main">
         <ly-header></ly-header>
+        <ly-nav-menu></ly-nav-menu>
         <ly-footer></ly-footer>
         <ly-tip></ly-tip>
     </div>
@@ -8,6 +9,7 @@
 
 <script>
     import LayoutHeader from "../common/Header.vue";
+    import NavMenu from "@/list/NavMenu";
     import LayoutFooter from "../common/Footer.vue";
     import Tip from "../common/Tip.vue";
 
@@ -15,8 +17,9 @@
         name: "list-main",
         components: {
             'ly-header': LayoutHeader,
+            'ly-nav-menu': NavMenu,
             'ly-footer': LayoutFooter,
-            'ly-tip':Tip
+            'ly-tip': Tip
         }
     }
 </script>
