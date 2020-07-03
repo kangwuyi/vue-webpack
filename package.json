@@ -87,6 +87,9 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "*.scss",
+    "*.sass",
+    "*.less"
   ]
 }

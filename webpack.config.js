@@ -166,29 +166,30 @@ let clientConfig = {
                     },*/
                     /**
                      * vue-style-loader
-                     * @description vue-style-loader 与 MiniCssExtractPlugin.loader 用其一即可
+                     * @description vue-style-loader 与 MiniCssExtractPlugin.loader 用其一即可，两者冲突严重，默认情况下在中使用 vue-loader 已使用
                      */
-                    {
-                        loader: 'vue-style-loader'
-                    },
-                    /**
-                     * MiniCssExtractPlugin.loader
-                     * @description css 分离，把 js 中 import 导入的样式文件代码，打包成一个实际的 css 文件，结合 html-webpack-plugin，
-                     * 在 dist/index.html 中以 link 插入 css 文件；默认将 js 中 import 的多个 css 文件，打包时合成一个
-                     * @param options.publicPath {string} 公共路径，默认情况下，使用的是webpackOptions.output中publicPath
-                     * @param options.hmr {boolean} 开发环境配置热更新
-                     * @param options.minimize {boolean} 压缩优化
-                     */
-                    /*{
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            //publicPath: './',
-                            hmr: doDev,
-                            minimize: !doDev,
-                            sourceMap: doDev,
-                            //esModule: doDev,
+                    doDev ? {
+                            loader: 'style-loader'
                         }
-                    },*/
+                        /**
+                         * MiniCssExtractPlugin.loader
+                         * @description css 分离，把 js 中 import 导入的样式文件代码，打包成一个实际的 css 文件，结合 html-webpack-plugin，
+                         * 在 dist/index.html 中以 link 插入 css 文件；默认将 js 中 import 的多个 css 文件，打包时合成一个
+                         * 不使用时需要注意处理与 FixStyleOnlyEntriesPlugin 的联动，不然会由于多余 js 文件被删除导致 css 无法使用 style 标签插入文本
+                         * @param options.publicPath {string} 公共路径，默认情况下，使用的是webpackOptions.output中publicPath
+                         * @param options.hmr {boolean} 开发环境配置热更新
+                         * @param options.minimize {boolean} 压缩优化
+                         */
+                        : {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                publicPath: './',
+                                //hmr: doDev,
+                                minimize: !doDev,
+                                sourceMap: doDev,
+                                //esModule: doDev,
+                            }
+                        },
                     /**
                      * css-loader
                      * @description 解析 css
@@ -290,23 +291,6 @@ let clientConfig = {
                 ]
             },
             {
-                test: /\.html$/,
-                use: [
-                    /**
-                     * html-loader
-                     * @description
-                     * @param options.attrs 匹配 html 文件中 img 标签的 src 属性值
-                     */
-                    {
-                        loader: 'html-loader',
-                        options: {
-                            attrs: ['img:src']
-                        }
-                    }
-                ]
-
-            },
-            {
                 test: /\.vue$/,
                 use: [
                     /**
@@ -317,11 +301,12 @@ let clientConfig = {
                         loader: 'vue-loader',
                         /*options: {
                             loaders: {
-                                'scss': 'vue-style-loader!css-loader!sass-loader',
-                                'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                                'scss': MiniCssExtractPlugin.loader+'!css-loader!sass-loader',
+                                //'scss': 'vue-style-loader!css-loader!sass-loader',
+                                //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                             }
-                        }*/
-                    }
+                        },*/
+                    },
                 ]
             },
             /*{
@@ -378,6 +363,22 @@ let clientConfig = {
                 ]
 
             },
+            {
+                test: /\.html$/,
+                use: [
+                    /**
+                     * html-loader
+                     * @description
+                     * @param options.attrs 匹配 html 文件中 img 标签的 src 属性值
+                     */
+                    {
+                        loader: 'html-loader',
+                        options: {
+                            attrs: ['img:src']
+                        }
+                    }
+                ]
+            },
         ]
     },
     plugins: [
@@ -389,7 +390,7 @@ let clientConfig = {
          * @param cleanOnceBeforeBuildPatterns {array} 排除文件
          */
         new CleanWebpackPlugin({
-            dry: doDev,
+            dry: false,
             verbose: true,
             cleanOnceBeforeBuildPatterns: ['**/*', '!noimgs', '!noimgs/**', '!noimgs/**/*']
         }),
@@ -397,7 +398,7 @@ let clientConfig = {
          * FixStyleOnlyEntriesPlugin
          * @description 以 css 为入口文件时，会输出多余的 js 文件，删之
          */
-        new FixStyleOnlyEntriesPlugin({
+        doDev?function (){}:new FixStyleOnlyEntriesPlugin({
             //extensions: ['css.js'],
             ignore: 'webpack-hot-middleware'
         }),
@@ -407,7 +408,7 @@ let clientConfig = {
          * @param filename {string}
          * @param chunkFilename {string}
          */
-        new MiniCssExtractPlugin({
+        doDev?function (){}:new MiniCssExtractPlugin({
             filename: doDev ? 'css/[name].css' : 'css/[name].[hash].min.css',
             chunkFilename: doDev ? '[id].css' : '[name].[hash].min.css',
         }),
@@ -415,12 +416,12 @@ let clientConfig = {
          * webpack-manifest-plugin
          * @description 生成 manifest.json 插入文档
          */
-        new ManifestPlugin(),
+        doDev?function (){}:new ManifestPlugin(),
         /**
          * PurgecssPlugin
          * @description 移除无用的 css，建校 css 大小
          */
-        new PurgecssPlugin({
+        doDev?function (){}:new PurgecssPlugin({
             paths: glob.sync(`${path.join(__dirname, 'dist')}/**/*`, {nodir: true}),
         }),
         /**
@@ -434,7 +435,7 @@ let clientConfig = {
          */
         new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['index_page_script', 'main_style'], externalConfig)),
         //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['index_page_script'], externalConfig)),
-       // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['index_page_script'], externalConfig)),
+        // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['index_page_script'], externalConfig)),
         /**
          *
          */
@@ -493,7 +494,7 @@ let clientConfig = {
          * @description css 插入文档，减少调用 .css 文件
          * @param penthouse.blockJSRequests {boolean} 调用打包后的JS文件
          */
-        doDev ? function () {
+        /*doDev ? function () {
         } : new HtmlCriticalWebpackPlugin({
             base: path.resolve(__dirname, 'dist'),
             src: 'index.html',
@@ -506,7 +507,7 @@ let clientConfig = {
             penthouse: {
                 blockJSRequests: false
             }
-        }),
+        }),*/
         /**
          * ProvidePlugin
          * @description
@@ -549,7 +550,7 @@ let clientConfig = {
         //host: '0.0.0.0',
         //hotOnly: true,
         historyApiFallback: true,
-        watchContentBase : true,
+        watchContentBase: true,
         hot: true
     },
     optimization: {
