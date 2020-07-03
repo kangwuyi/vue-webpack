@@ -1,260 +1,120 @@
 {
   "code": 0,
   "message": "success",
-  "data": {
-    "list": [
-      {
-        "id": 1,
-        "parent_id": 0,
-        "name": "头颈部",
-        "name_en": "head",
-        "children": [
-          {
-            "id": 2,
-            "parent_id": 1,
-            "name": "脑",
-            "name_en": "brain"
-          },
-          {
-            "id": 3,
-            "parent_id": 1,
-            "name": "眼",
-            "name_en": "eye"
-          },
-          {
-            "id": 4,
-            "parent_id": 1,
-            "name": "耳鼻",
-            "name_en": "ear_nose"
-          },
-          {
-            "id": 5,
-            "parent_id": 1,
-            "name": "口腔",
-            "name_en": "mouth"
-          },
-          {
-            "id": 6,
-            "parent_id": 1,
-            "name": "颈部",
-            "name_en": "neck"
-          },
-          {
-            "id": 7,
-            "parent_id": 1,
-            "name": "面部头皮",
-            "name_en": "face"
-          }
-        ]
-      },
-      {
-        "id": 8,
-        "parent_id": 0,
-        "name": "胸部",
-        "name_en": "chest",
-        "children": [
-          {
-            "id": 9,
-            "parent_id": 8,
-            "name": "乳房",
-            "name_en": "female_breast"
-          },
-          {
-            "id": 10,
-            "parent_id": 8,
-            "name": "肺",
-            "name_en": "lung"
-          },
-          {
-            "id": 11,
-            "parent_id": 8,
-            "name": "心脏",
-            "name_en": "heart"
-          },
-          {
-            "id": 12,
-            "parent_id": 8,
-            "name": "食道",
-            "name_en": "esophagus"
-          },
-          {
-            "id": 13,
-            "parent_id": 8,
-            "name": "肋骨",
-            "name_en": "rib"
-          },
-          {
-            "id": 14,
-            "parent_id": 8,
-            "name": "纵膈",
-            "name_en": "mediastinal"
-          }
-        ]
-      },
-      {
-        "id": 15,
-        "parent_id": 0,
-        "name": "腹部",
-        "name_en": "abdomen",
-        "children": [
-          {
-            "id": 16,
-            "parent_id": 15,
-            "name": "胃・食道・十二指肠",
-            "name_en": "stomach"
-          },
-          {
-            "id": 17,
-            "parent_id": 15,
-            "name": "大肠小肠",
-            "name_en": "intestines"
-          },
-          {
-            "id": 18,
-            "parent_id": 15,
-            "name": "肝胆",
-            "name_en": "liver_gallbladder"
-          },
-          {
-            "id": 19,
-            "parent_id": 15,
-            "name": "胰脏",
-            "name_en": "pancreas"
-          },
-          {
-            "id": 20,
-            "parent_id": 15,
-            "name": "肾脏",
-            "name_en": "kidney"
-          },
-          {
-            "id": 21,
-            "parent_id": 15,
-            "name": "脾",
-            "name_en": "spleen"
-          }
-        ]
-      },
-      {
-        "id": 22,
-        "parent_id": 0,
-        "name": "骨盆",
-        "name_en": "pelvis",
-        "children": [
-          {
-            "id": 23,
-            "parent_id": 22,
-            "name": "股关节",
-            "name_en": "hip_joint"
-          },
-          {
-            "id": 24,
-            "parent_id": 22,
-            "name": "男性器",
-            "name_en": "male_genitalia"
-          },
-          {
-            "id": 25,
-            "parent_id": 22,
-            "name": "泌尿器",
-            "name_en": "urinary_organs"
-          },
-          {
-            "id": 26,
-            "parent_id": 22,
-            "name": "肛门",
-            "name_en": "hip"
-          },
-          {
-            "id": 27,
-            "parent_id": 22,
-            "name": "女性器",
-            "name_en": "female_genitalia"
-          }
-        ]
-      },
-      {
-        "id": 28,
-        "parent_id": 0,
-        "name": "四肢",
-        "name_en": "arm_leg",
-        "children": [
-          {
-            "id": 29,
-            "parent_id": 28,
-            "name": "肩",
-            "name_en": "shoulder"
-          },
-          {
-            "id": 30,
-            "parent_id": 28,
-            "name": "腕",
-            "name_en": "arm"
-          },
-          {
-            "id": 31,
-            "parent_id": 28,
-            "name": "手",
-            "name_en": "hand"
-          },
-          {
-            "id": 32,
-            "parent_id": 28,
-            "name": "膝",
-            "name_en": "knee"
-          },
-          {
-            "id": 33,
-            "parent_id": 28,
-            "name": "脚",
-            "name_en": "foot"
-          }
-        ]
-      },
-      {
-        "id": 34,
-        "parent_id": 0,
-        "name": "全身",
-        "name_en": "body",
-        "children": [
-          {
-            "id": 35,
-            "parent_id": 34,
-            "name": "皮肤",
-            "name_en": "skin"
-          },
-          {
-            "id": 36,
-            "parent_id": 34,
-            "name": "血液",
-            "name_en": "blood"
-          },
-          {
-            "id": 37,
-            "parent_id": 34,
-            "name": "血管",
-            "name_en": "blood_vessel"
-          },
-          {
-            "id": 38,
-            "parent_id": 34,
-            "name": "神经",
-            "name_en": "nerve"
-          },
-          {
-            "id": 39,
-            "parent_id": 34,
-            "name": "骨",
-            "name_en": "bone"
-          },
-          {
-            "id": 40,
-            "parent_id": 34,
-            "name": "肌肉",
-            "name_en": "muscle"
-          }
-        ]
-      }
-    ]
-  }
+  "data": [
+    {
+      "key": "dept",
+      "title": "按科室",
+      "filters": [
+        {
+          "key": "country",
+          "title": "国家",
+          "options": [
+            {
+              "title": "不限",
+              "value": ""
+            },
+            {
+              "title": "美国",
+              "value": "usa"
+            },
+            {
+              "title": "日本",
+              "value": "jap"
+            }
+          ]
+        },
+        {
+          "key": "dept",
+          "title": "科室",
+          "options": [
+            {
+              "title": "不限",
+              "value": ""
+            },
+            {
+              "title": "老年科",
+              "value": "lao-nian-ke"
+            },
+            {
+              "title": "骨科",
+              "value": "gu-ke"
+            },
+            {
+              "title": "呼吸科",
+              "value": "hu-xi-ke"
+            },
+            {
+              "title": "泌尿科",
+              "value": "mi-niao-ke"
+            },
+            {
+              "title": "血管外科",
+              "value": "xue-guan-wai-ke"
+            },
+            {
+              "title": "肛肠外科",
+              "value": "gang-chang-wai-ke"
+            },
+            {
+              "title": "心脏外科",
+              "value": "xin-zang-wai-ke"
+            },
+            {
+              "title": "内分泌科",
+              "value": "nei-fen-mi-ke"
+            },
+            {
+              "title": "消化科",
+              "value": "xiao-hua-ke"
+            },
+            {
+              "title": "神经外科",
+              "value": "shen-jing-wai-ke"
+            },
+            {
+              "title": "神经内科",
+              "value": "shen-jing-nei-ke"
+            },
+            {
+              "title": "心血管外科",
+              "value": "xin-xue-guan-wai-ke"
+            },
+            {
+              "title": "妇科",
+              "value": "fu-ke"
+            },
+            {
+              "title": "肿瘤科",
+              "value": "zhong-liu-ke"
+            },
+            {
+              "title": "耳鼻喉科",
+              "value": "er-bi-hou-ke"
+            },
+            {
+              "title": "儿科",
+              "value": "er-ke"
+            },
+            {
+              "title": "眼科",
+              "value": "yan-ke"
+            },
+            {
+              "title": "风湿免疫科",
+              "value": "feng-shi-mian-yi-ke"
+            },
+            {
+              "title": "康复科",
+              "value": "kang-fu-ke"
+            },
+            {
+              "title": "血液科",
+              "value": "xue-ye-ke"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
