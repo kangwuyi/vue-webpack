@@ -159,11 +159,11 @@ let clientConfig = {
                 use: [
                     /**
                      * style-loader
-                     * @description
+                     * @description 把 js 中 import 导入的样式文件代码，打包到 js 文件中，运行 js 文件时，将样式自动插入到<style>标签中
                      */
-                    {
+                    /*{
                         loader: 'style-loader'
-                    },
+                    },*/
                     /**
                      * vue-style-loader
                      * @description vue-style-loader 与 MiniCssExtractPlugin.loader 用其一即可
@@ -173,7 +173,8 @@ let clientConfig = {
                     },*/
                     /**
                      * MiniCssExtractPlugin.loader
-                     * @description css 分离
+                     * @description css 分离，把 js 中 import 导入的样式文件代码，打包成一个实际的 css 文件，结合 html-webpack-plugin，
+                     * 在 dist/index.html 中以 link 插入 css 文件；默认将 js 中 import 的多个 css 文件，打包时合成一个
                      * @param options.publicPath {string} 公共路径，默认情况下，使用的是webpackOptions.output中publicPath
                      * @param options.hmr {boolean} 开发环境配置热更新
                      * @param options.minimize {boolean} 压缩优化
@@ -632,7 +633,7 @@ let clientConfig = {
          * @param chunks {string} initial 异步代码分割，all 同步代码分割
          * @param minSize {number} 大于该值做代码分割
          */
-        splitChunks: {
+        /*splitChunks: {
             chunks: "all",
             minSize: 3000,
             minChunks: 1,
@@ -648,9 +649,9 @@ let clientConfig = {
                     minSize: 0,         //表示提取公共部分最小的大小
                     priority: 0
                 },
-                /**
+                /!**
                  * @description 打包 node_modules 中的文件
-                 */
+                 *!/
                 vendor: {
                     name: 'vendor',
                     test: /[\\/]node_modules[\\/]/,
@@ -664,7 +665,7 @@ let clientConfig = {
                     enforce: true
                 }
             }
-        }
+        }*/
     },
     /*watch:true,
     watchOptions:{

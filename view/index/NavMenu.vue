@@ -1,21 +1,19 @@
 <template>
-    <div class="box">
-        <el-aside id="NavMenu">
-            <el-menu class="b-nav"
-                     @open="handleOpen"
-                     @close="handleClose"
-                     :default-active="$route.path"
-                     :collapse="isCollapse"
-                     :collapse-transition="false">
-                <template v-bind:index="item.id"
-                          v-for="item in Body_parts_all" >
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
-                </template>
-            </el-menu>
-        </el-aside>
+    <div class="box" id="NavMenu">
+        <el-menu class="b-nav el-menu-vertical"
+                 @open="handleOpen"
+                 @close="handleClose"
+                 :default-active="$route.path"
+                 :collapse="isCollapse"
+                 :collapse-transition="false">
+            <template v-bind:index="item.id"
+                      v-for="item in Body_parts_all">
+                <el-menu-item index="4">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">导航四</span>
+                </el-menu-item>
+            </template>
+        </el-menu>
     </div>
 </template>
 <script>
@@ -68,5 +66,8 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
     .box {
         background: #04AFA3 !important;
+    }
+    .el-menu-vertical{
+        width: 198px;
     }
 </style>
