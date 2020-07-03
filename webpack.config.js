@@ -113,7 +113,7 @@ let clientConfig = {
         index: './public/js/index.js',
         info: './public/js/info.js',
         list: './public/js/list.js',
-        main: ['./public/js/index.js'],
+        index_page_script: ['./public/js/index.js'],
         //get: './public/js/get/body_parts_all.js',
         //main_style: Object.values(wgentry('./public/scss/*.scss')),
         main_style: ['./public/scss/layout.scss', './public/scss/index.scss'],
@@ -168,9 +168,9 @@ let clientConfig = {
                      * vue-style-loader
                      * @description vue-style-loader 与 MiniCssExtractPlugin.loader 用其一即可
                      */
-                    /*{
+                    {
                         loader: 'vue-style-loader'
-                    },*/
+                    },
                     /**
                      * MiniCssExtractPlugin.loader
                      * @description css 分离，把 js 中 import 导入的样式文件代码，打包成一个实际的 css 文件，结合 html-webpack-plugin，
@@ -179,7 +179,7 @@ let clientConfig = {
                      * @param options.hmr {boolean} 开发环境配置热更新
                      * @param options.minimize {boolean} 压缩优化
                      */
-                    {
+                    /*{
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             //publicPath: './',
@@ -188,7 +188,7 @@ let clientConfig = {
                             sourceMap: doDev,
                             //esModule: doDev,
                         }
-                    },
+                    },*/
                     /**
                      * css-loader
                      * @description 解析 css
@@ -239,13 +239,13 @@ let clientConfig = {
                          * @param indentedSyntax {boolean} 缩进的sass语法
                          */
                         loader: 'sass-loader',
-                        /*options: {
+                        options: {
                             sourceMap: doDev,
                             sassOptions: {
                                 outputStyle: false,
                                 // indentedSyntax: true
                             },
-                        },*/
+                        },
                     },
 
                 ]
@@ -391,7 +391,7 @@ let clientConfig = {
         new CleanWebpackPlugin({
             dry: doDev,
             verbose: true,
-            cleanOnceBeforeBuildPatterns: ['**/*', '!noimgs', '!noimgs/**/*']
+            cleanOnceBeforeBuildPatterns: ['**/*', '!noimgs', '!noimgs/**', '!noimgs/**/*']
         }),
         /**
          * FixStyleOnlyEntriesPlugin
@@ -432,9 +432,9 @@ let clientConfig = {
          * @param 4 {array} 插入文件
          * @param 5 {array} 插入 cdn
          */
-        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['main', 'main_style'], externalConfig)),
-        //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['main'], externalConfig)),
-       // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['main'], externalConfig)),
+        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['index_page_script', 'main_style'], externalConfig)),
+        //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['index_page_script'], externalConfig)),
+       // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['index_page_script'], externalConfig)),
         /**
          *
          */

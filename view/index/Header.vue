@@ -42,7 +42,5 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .box {
-        background: #04AFA3 !important;
-    }
+
 </style>

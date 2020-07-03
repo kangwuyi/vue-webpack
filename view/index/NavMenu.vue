@@ -8,10 +8,18 @@
                  :collapse-transition="false">
             <template v-bind:index="item.id"
                       v-for="item in Body_parts_all">
-                <el-menu-item index="4">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">导航四</span>
-                </el-menu-item>
+                <el-submenu :index="item.id+''">
+                    <template slot="title">
+                        <img v-bind:src="item.src" width="20"/>
+                        <span slot="title" class="nav-menu-title">胸部</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template v-bind:index="itemChildren.id"
+                                  v-for="itemChildren in item.children">
+                            <el-menu-item :index="itemChildren.id+''" class="nav-menu-child-title">{{itemChildren.name}}</el-menu-item>
+                        </template>
+                    </el-menu-item-group>
+                </el-submenu>
             </template>
         </el-menu>
     </div>
@@ -51,6 +59,7 @@
                     for (let i = 0; i < BPA.length; i++) {
                         BPA[i]['src'] = BS(srcArr, ('' + BPA[i].id));
                     }
+                    ;console.log(BPA)
                     _self.Body_parts_all = BPA;
                 });
             },
@@ -64,10 +73,14 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .box {
-        background: #04AFA3 !important;
-    }
-    .el-menu-vertical{
+    .el-menu-vertical {
         width: 198px;
+    }
+    .nav-menu-title{
+        height: auto;
+        width: auto;
+        overflow: hidden;
+        visibility: visible;
+        display: block;
     }
 </style>
