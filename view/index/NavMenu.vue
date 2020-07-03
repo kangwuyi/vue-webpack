@@ -1,9 +1,10 @@
 <template>
-    <div id="NavMenu">
+    <div id="NavMenu" @click="navMenuHref(this)">
         <div class="box box-content">
             <el-menu class="b-nav el-menu-vertical"
                      @open="handleOpen"
                      @close="handleClose"
+                     @click.native="stopClick(this)"
                      :default-active="$route.path"
                      :collapse="isCollapse"
                      :unique-opened="true"
@@ -64,7 +65,7 @@
                     for (let i = 0; i < BPA.length; i++) {
                         BPA[i]['src'] = BS(srcArr, ('' + BPA[i].id));
                     }
-                    ;console.log(BPA)
+                    console.log(BPA)
                     _self.Body_parts_all = BPA;
                 });
             },
@@ -73,12 +74,28 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            navMenuHref() {
+                window.location.href='https://www.baidu.com/';
+                this.stopPropagation();
+            },
+            stopClick(e) {
+                this.stopPropagation();
+
+            },
+            stopPropagation(e) {
+                e = e || window.event;
+                if (e.stopPropagation) { //W3C阻止冒泡方法
+                    e.stopPropagation();
+                } else {
+                    e.cancelBubble = true; //IE阻止冒泡方法
+                }
             }
         },
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
-    div#NavMenu .box-content{
+    div#NavMenu .box-content {
         .el-submenu {
             &.is-opened {
 
@@ -129,8 +146,11 @@
 </style>
 <style lang="scss" rel="stylesheet/scss" scoped>
     div#NavMenu {
-        background: url('../../dist/noimgs/banner.jpg') no-repeat center; height: 370px; background-size: cover;
-        .box-content{
+        background: url('../../dist/noimgs/banner.jpg') no-repeat center;
+        height: 370px;
+        background-size: cover;
+
+        .box-content {
 
             .el-menu-vertical {
                 width: 198px;

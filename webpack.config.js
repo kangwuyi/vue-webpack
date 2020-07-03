@@ -433,7 +433,7 @@ let clientConfig = {
          * @param 4 {array} 插入文件
          * @param 5 {array} 插入 cdn
          */
-        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '首页', ['index_page_script', 'main_style'], externalConfig)),
+        new HtmlWebpackPlugin(getHtmlConfig('index.html', 'view/index.ejs', '出国看病信息服务平台-出境医', ['index_page_script', 'main_style'], externalConfig)),
         //new HtmlWebpackPlugin(getHtmlConfig('list.html', 'view/list.vue', '首页', ['index_page_script'], externalConfig)),
         // new HtmlWebpackPlugin(getHtmlConfig('info.html', 'view/info.vue', '首页', ['index_page_script'], externalConfig)),
         /**
