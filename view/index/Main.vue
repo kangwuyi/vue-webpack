@@ -10,11 +10,11 @@
 </template>
 
 <script>
-    import LayoutHeader from "./Header.vue";
-    import LayoutFooter from "./Footer.vue";
+    import LayoutHeader from "../common/Header.vue";
+    import LayoutFooter from "../common/Footer.vue";
+    import Tip from "../common/Tip.vue";
     import LayoutNavMenu from "./NavMenu.vue";
     import ServiceItems from "./ServiceItems.vue";
-    import Tip from "./Tip.vue";
     import HospitalizationProcess from "./HospitalizationProcess.vue";
 
     export default {

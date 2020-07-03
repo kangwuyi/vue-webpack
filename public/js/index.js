@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 
-import App from '@/index/app.vue';
+import App from '@/router/app.vue';
 import router from '@/router/index.js'
 
 Vue.use(ElementUI);

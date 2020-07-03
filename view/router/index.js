@@ -2,12 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import IndexMain from "@/index/Main.vue";
-import NavMenu from "@/index/NavMenu.vue";
+import InfoMain from "@/info/Main.vue";
+import ListMain from "@/list/Main.vue";
 
-const routerPush = Router.prototype.push
-/*Router.prototype.push = function push (location) {
-    return routerPush.call(this, location).catch(error => error)
-}*/
 Vue.use(Router)
 
 export default new Router({
@@ -20,6 +17,18 @@ export default new Router({
         {
             path: "/index",
             components: {index_main: IndexMain},
+        },
+        {
+            path: "/info",
+            components: {info_main: InfoMain},
+        },
+        {
+            path: "/list",
+            components: {list_main: ListMain},
+        },
+        {
+            path: "/404",
+            components: {default: IndexMain},
         },
     ]
 })
