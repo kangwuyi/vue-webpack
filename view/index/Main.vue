@@ -1,5 +1,5 @@
 <template>
-    <div id="index-main">this is index/main
+    <div id="index-main">
         <ly-header></ly-header>
         <ly-nav-menu></ly-nav-menu>
     </div>

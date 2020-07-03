@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <el-header id="header">
         <div class="h-top l36 clearfix box">
             <div class="pull-left h-phone c-green mr40">
                 <span></span>
@@ -18,7 +18,7 @@
 
         </div>
 
-    </div>
+    </el-header>
 </template>
 
 <script>

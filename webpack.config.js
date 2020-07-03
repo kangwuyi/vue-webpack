@@ -105,7 +105,7 @@ const externalConfig = [
  * @param plugins 插件
  * @param optimization 代码分割
  */
-var clientConfig = {
+let clientConfig = {
     target: 'web',
     mode: doMode, // production // development
     devtool: doDev ? 'source-map' : false,
@@ -161,16 +161,16 @@ var clientConfig = {
                      * style-loader
                      * @description
                      */
-                    /*{
+                    {
                         loader: 'style-loader'
-                    },*/
+                    },
                     /**
                      * vue-style-loader
-                     * @description
+                     * @description vue-style-loader 与 MiniCssExtractPlugin.loader 用其一即可
                      */
-                    {
+                    /*{
                         loader: 'vue-style-loader'
-                    },
+                    },*/
                     /**
                      * MiniCssExtractPlugin.loader
                      * @description css 分离
@@ -181,7 +181,7 @@ var clientConfig = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: './',
+                            //publicPath: './',
                             hmr: doDev,
                             minimize: !doDev,
                             sourceMap: doDev,
@@ -238,13 +238,13 @@ var clientConfig = {
                          * @param indentedSyntax {boolean} 缩进的sass语法
                          */
                         loader: 'sass-loader',
-                        options: {
+                        /*options: {
                             sourceMap: doDev,
                             sassOptions: {
                                 outputStyle: false,
                                 // indentedSyntax: true
                             },
-                        },
+                        },*/
                     },
 
                 ]
@@ -632,7 +632,7 @@ var clientConfig = {
          * @param chunks {string} initial 异步代码分割，all 同步代码分割
          * @param minSize {number} 大于该值做代码分割
          */
-        /*splitChunks: {
+        splitChunks: {
             chunks: "all",
             minSize: 3000,
             minChunks: 1,
@@ -648,9 +648,9 @@ var clientConfig = {
                     minSize: 0,         //表示提取公共部分最小的大小
                     priority: 0
                 },
-                /!**
+                /**
                  * @description 打包 node_modules 中的文件
-                 *!/
+                 */
                 vendor: {
                     name: 'vendor',
                     test: /[\\/]node_modules[\\/]/,
@@ -664,7 +664,7 @@ var clientConfig = {
                     enforce: true
                 }
             }
-        }*/
+        }
     },
     /*watch:true,
     watchOptions:{
