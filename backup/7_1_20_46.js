@@ -592,9 +592,8 @@ var clientConfig = {
                  */
                 vendor: {
                     name: 'vendor',
-                    test: /[\\/]node_modules[\\/]/,
+                    test: /[\\/]node_modules[\\/](vue|element-ui)[\\/]/,
                     chunks: 'all',
-                    priority: -20
                 },
                 styles: {
                     name: 'css/styles',

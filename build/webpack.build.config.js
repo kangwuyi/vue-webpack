@@ -59,7 +59,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
             useShortDoctype: true, //使用短的文档类型，默认false
             //attrs: ['img:src']
         },
-        cdnConfig: cdnConfig, // cdn配置
+        //cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
         /*chunksSortMode: function (chunk1, chunk2) {
             var order = ['common', 'public', 'index'];
@@ -300,13 +300,13 @@ let clientConfig = {
                      */
                     {
                         loader: 'vue-loader',
-                        options: {
+                        /*options: {
                             loaders: {
                                 //'scss': MiniCssExtractPlugin.loader+'!css-loader!sass-loader',
                                 'css': 'style-loader!css-loader!sass-loader',
                                 //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                             }
-                        },
+                        },*/
                     },
                 ]
             },
@@ -422,13 +422,13 @@ let clientConfig = {
         doDev ? function () {
         } : new ManifestPlugin(),
         /**
-         * PurgecssPlugin
+         * PurgecssPlugin 插件冲突，会破坏 vue 里面的 css！！！
          * @description 移除无用的 css，建校 css 大小
          */
-        doDev ? function () {
+        /*doDev ? function () {
         } : new PurgecssPlugin({
-            paths: glob.sync(`${path.join(__dirname, 'dist')}/**/*`, {nodir: true}),
-        }),
+            paths: glob.sync(`${path.join(__dirname, 'dist')}/!**!/!*`, {nodir: true}),
+        }),*/
         /**
          * HtmlWebpackPlugin
          * @description 打包压缩 html 文档
@@ -499,7 +499,7 @@ let clientConfig = {
          * @description css 插入文档，减少调用 .css 文件
          * @param penthouse.blockJSRequests {boolean} 调用打包后的JS文件
          */
-        /*doDev ? function () {
+        doDev ? function () {
         } : new HtmlCriticalWebpackPlugin({
             base: path.resolve(__dirname, 'dist'),
             src: 'index.html',
@@ -512,7 +512,7 @@ let clientConfig = {
             penthouse: {
                 blockJSRequests: false
             }
-        }),*/
+        }),
         /**
          * ProvidePlugin
          * @description
@@ -591,6 +591,9 @@ let clientConfig = {
              * @param parallel {boolean} 多进程并行运行
              * @param extractComments {boolean} 禁止构建注释
              */
+            new webpack.LoaderOptionsPlugin({
+                minimize: true
+            }),
             new UglifyJsPlugin({
                 uglifyOptions: {
                     comments: false,
@@ -598,7 +601,7 @@ let clientConfig = {
                         drop_console: true,
                         drop_debugger: true,
                         pure_funcs: ['console.log'],
-                        warnings: false
+                        warnings: true
                     },
                     // warnings: false,
                     mangle: false,
@@ -608,19 +611,19 @@ let clientConfig = {
                     except: ['$super', '$', 'exports', 'require']
                 },
                 test: /\.js(\?.*)?$/i,
-                include: ['./public/js/index.js'],
-                exclude: ['/node_module/', '/public/imgs/', '/public/scss/', '/public/css/'],
-                chunkFilter: (chunk) => {
-                    /**
+                //include: /\/public\/js/,
+                //exclude: ['/public/imgs/', '/public/scss/', '/public/css/'],
+                /*chunkFilter: (chunk) => {
+                    /!**
                      * `vendor` 模块不压缩
-                     */
+                     *!/
                     return chunk.name !== 'vendor';
 
-                },
+                },*/
                 cache: true,
                 sourceMap: doDev,
                 parallel: true,
-                extractComments: false,
+                extractComments: true,
             }),
             /**
              * OptimizeCSSAssetsPlugin
@@ -659,8 +662,8 @@ let clientConfig = {
          * @param minSize {number} 大于该值做代码分割
          */
         splitChunks: {
-            chunks: "all",
-            minSize: 3000,
+            chunks: "async",
+            minSize: 30000,
             minChunks: 1,
             maxAsyncRequests: 5,
             maxInitialRequests: 3,
@@ -672,32 +675,30 @@ let clientConfig = {
                  * @param priority {number} 优先级配置，优先匹配优先级更高的规则，不设置的规则优先级默认为0
                  */
                 commons: {
-                    name: 'commons',    //提取出来的文件命名
-                    chunks: 'initial',
+                    name: 'css/commons',    //提取出来的文件命名
+                    chunks: 'async',
                     minChunks: 2,
-                    minSize: 50*1024,         //表示提取公共部分最小的大小
+                    minSize: 50 * 1024,         //表示提取公共部分最小的大小
                     priority: 0
                 },
                 /**
                  * @description 打包 node_modules 中的文件
                  */
-                vendor: {
-                    name: 'vendor',
-                    test:  /node_modules/,
-                    chunks: 'all',
-                    priority: -20
+                vendors: {//key 为entry中定义的 入口名称
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10//优先级
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true//复用之前的打包模块
                 },
                 styles: {
                     name: 'css/styles',
                     test: /\.css$/,
-                    chunks: 'all',
+                    chunks: 'async',
                     enforce: true
                 },
-                /*default: { //默认打包模块
-                    priority: -20,
-                    reuseExistingChunk: true, //模块嵌套引入时，判断是否复用已经被打包的模块
-                    //filename: 'index.js'
-                }*/
             }
         }
     },

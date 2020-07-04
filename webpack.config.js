@@ -2,15 +2,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
 const webpack = require('webpack'); // 用于访问内置插件
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //const WebpackMd5Hash = require('webpack-md5-hash');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const glob = require('glob');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
 var wgentry = require('webpack-glob-entry'); // 模糊匹配
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 var CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -112,8 +111,6 @@ let clientConfig = {
     devtool: doDev ? 'source-map' : 'false',
     entry: {
         index: './public/js/index.js',
-        info: './public/js/info.js',
-        list: './public/js/list.js',
         index_page_script: ['./public/js/index.js'],
         //get: './public/js/get/body_parts_all.js',
         //main_style: Object.values(wgentry('./public/scss/*.scss')),
@@ -137,20 +134,9 @@ let clientConfig = {
                         loader: 'babel-loader',
                         options: {
                             presets: [
-                                ['@babel/preset-env', {
-                                    targets: {
-                                        browsers: ['> 1%', 'last 2 version']
-                                        // "edge": "17",
-                                        // "firefox": "60",
-                                        // "chrome": "67",
-                                        // "safari": "11.1",
-                                    },
-                                    "corejs": "2",
-                                    useBuiltIns: 'usage'
-                                }]
-
+                                '@babel/preset-env'
                             ]
-                        }
+                        },
                     }
                 ],
                 exclude: /((sc|sa|le|c)ss\/.*)|(node_modules\/.*)/
@@ -513,6 +499,7 @@ let clientConfig = {
                 blockJSRequests: false
             }
         }),
+        doDev?function () {}:new MinifyPlugin({}, {}),
         /**
          * ProvidePlugin
          * @description
@@ -573,59 +560,6 @@ let clientConfig = {
     optimization: {
         minimizer: [
             /**
-             * UglifyJsPlugin
-             * @description Javascript 压缩优化
-             * @param uglifyOptions.compress.drop_console {boolean} 注释 console
-             * @param uglifyOptions.compress.drop_debugger {boolean} 注释 debugger
-             * @param uglifyOptions.compress.pure_funcs {array} 移除 console
-             * @param uglifyOptions.compress.warnings {boolean} 忽略警告
-             * @param uglifyOptions.output.beautify {boolean} 压缩注释
-             * @param uglifyOptions.except {array} 排除关键字
-             * @param test {string} 匹配文件
-             * @param comments {boolean} 去掉注释
-             * @param include {array|string} 包含文件
-             * @param exclude {array|string} 排除文件
-             * @param chunkFilter {function} 过滤
-             * @param cache {boolean} 缓冲
-             * @param sourceMap {boolean} 源码调试
-             * @param parallel {boolean} 多进程并行运行
-             * @param extractComments {boolean} 禁止构建注释
-             */
-            new webpack.LoaderOptionsPlugin({
-                minimize: true
-            }),
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    comments: false,
-                    compress: {
-                        drop_console: true,
-                        drop_debugger: true,
-                        pure_funcs: ['console.log'],
-                        warnings: true
-                    },
-                    // warnings: false,
-                    mangle: false,
-                    output: {
-                        beautify: true
-                    },
-                    except: ['$super', '$', 'exports', 'require']
-                },
-                test: /\.js(\?.*)?$/i,
-                //include: /\/public\/js/,
-                //exclude: ['/public/imgs/', '/public/scss/', '/public/css/'],
-                /*chunkFilter: (chunk) => {
-                    /!**
-                     * `vendor` 模块不压缩
-                     *!/
-                    return chunk.name !== 'vendor';
-
-                },*/
-                cache: true,
-                sourceMap: doDev,
-                parallel: true,
-                extractComments: true,
-            }),
-            /**
              * OptimizeCSSAssetsPlugin
              * @description 对 css 文件进行压缩和优化
              * @param assetNameRegExp {string} 正则表达式，指示应优化\最小化的资产的名称。
@@ -685,8 +619,9 @@ let clientConfig = {
                  * @description 打包 node_modules 中的文件
                  */
                 vendors: {//key 为entry中定义的 入口名称
-                    test: /[\\/]node_modules[\\/]/,
-                    priority: -10//优先级
+                    test: /[\\/]node_modules[\\/](vue|element-ui)[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all',
                 },
                 default: {
                     minChunks: 2,
