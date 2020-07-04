@@ -14,7 +14,7 @@ module.exports = {
     mode: doMode,
     entry: {
         //element: ['./public/js/element.js'],
-        vue_build: ["vue", "element-ui"],
+        //vue_build: ["vue", "element-ui"],
         axios: ["./public/js/axios.min.js"],
         element_ui: ['./public/css/element.css'],
         public_style: ['./public/css/reset.css', './public/css/common.css']

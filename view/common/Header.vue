@@ -56,7 +56,6 @@
         },
         // 监听路由，每次进入页面调用方法，放在method里
         mounted() {
-            console.log('here is header')
         },
         components: {test},
         methods: {},
