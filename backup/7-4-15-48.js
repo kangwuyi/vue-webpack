@@ -59,7 +59,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
             useShortDoctype: true, //使用短的文档类型，默认false
             //attrs: ['img:src']
         },
-        //cdnConfig: cdnConfig, // cdn配置
+        // cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
         /*chunksSortMode: function (chunk1, chunk2) {
             var order = ['common', 'public', 'index'];
@@ -78,7 +78,7 @@ const externalConfig = [
     {
         name: 'vue',
         scope: 'Vue',
-        js: 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js'
+        js: 'https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.min.js'
     },
     /*{
         name: 'vue-router',
@@ -303,7 +303,7 @@ let clientConfig = {
                         options: {
                             loaders: {
                                 //'scss': MiniCssExtractPlugin.loader+'!css-loader!sass-loader',
-                                'css': 'style-loader!css-loader!sass-loader',
+                                'scss': 'style-loader!css-loader!sass-loader',
                                 //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                             }
                         },
@@ -693,11 +693,11 @@ let clientConfig = {
                     chunks: 'all',
                     enforce: true
                 },
-                /*default: { //默认打包模块
+                default: { //默认打包模块
                     priority: -20,
                     reuseExistingChunk: true, //模块嵌套引入时，判断是否复用已经被打包的模块
                     //filename: 'index.js'
-                }*/
+                }
             }
         }
     },

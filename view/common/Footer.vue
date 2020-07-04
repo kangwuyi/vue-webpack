@@ -57,7 +57,7 @@
         },
     }
 </script>
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss">
     #footer {
         height: auto !important;
     }

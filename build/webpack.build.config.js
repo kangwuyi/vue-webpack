@@ -59,7 +59,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
             useShortDoctype: true, //使用短的文档类型，默认false
             //attrs: ['img:src']
         },
-        //cdnConfig: cdnConfig, // cdn配置
+        cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
         /*chunksSortMode: function (chunk1, chunk2) {
             var order = ['common', 'public', 'index'];

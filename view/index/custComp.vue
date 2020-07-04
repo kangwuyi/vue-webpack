@@ -22,8 +22,10 @@
         },
     }
 </script>
-<style lang="scss" rel="stylesheet/scss">
-
+<style lang="css" rel="stylesheet/css">
+#custComp{
+    background: black;
+}
 </style>
 <style lang="scss" rel="stylesheet/scss" scoped>
 
