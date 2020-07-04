@@ -422,13 +422,13 @@ let clientConfig = {
         doDev ? function () {
         } : new ManifestPlugin(),
         /**
-         * PurgecssPlugin
+         * PurgecssPlugin 插件冲突，会破坏 vue 里面的 css！！！
          * @description 移除无用的 css，建校 css 大小
          */
-        doDev ? function () {
+        /*doDev ? function () {
         } : new PurgecssPlugin({
-            paths: glob.sync(`${path.join(__dirname, 'dist')}/**/*`, {nodir: true}),
-        }),
+            paths: glob.sync(`${path.join(__dirname, 'dist')}/!**!/!*`, {nodir: true}),
+        }),*/
         /**
          * HtmlWebpackPlugin
          * @description 打包压缩 html 文档
@@ -499,7 +499,7 @@ let clientConfig = {
          * @description css 插入文档，减少调用 .css 文件
          * @param penthouse.blockJSRequests {boolean} 调用打包后的JS文件
          */
-        doDev ? function () {
+        /*doDev ? function () {
         } : new HtmlCriticalWebpackPlugin({
             base: path.resolve(__dirname, 'dist'),
             src: 'index.html',
@@ -512,7 +512,7 @@ let clientConfig = {
             penthouse: {
                 blockJSRequests: false
             }
-        }),
+        }),*/
         /**
          * ProvidePlugin
          * @description
@@ -672,7 +672,7 @@ let clientConfig = {
                  * @param priority {number} 优先级配置，优先匹配优先级更高的规则，不设置的规则优先级默认为0
                  */
                 commons: {
-                    name: 'commons',    //提取出来的文件命名
+                    name: 'css/commons',    //提取出来的文件命名
                     chunks: 'initial',
                     minChunks: 2,
                     minSize: 50*1024,         //表示提取公共部分最小的大小
@@ -682,8 +682,8 @@ let clientConfig = {
                  * @description 打包 node_modules 中的文件
                  */
                 vendor: {
-                    name: 'vendor',
-                    test:  /node_modules/,
+                    name: 'js/vendor',
+                    test: /[\\/]node_modules[\\/]/,
                     chunks: 'all',
                     priority: -20
                 },
