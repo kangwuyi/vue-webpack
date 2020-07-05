@@ -12,8 +12,10 @@ var wgentry = require('webpack-glob-entry'); // 模糊匹配
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 var CompressionWebpackPlugin = require('compression-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const threadLoader = require('thread-loader');
 /*const middleware = require('webpack-dev-middleware');
 const instance = middleware(compiler);*/
 const doDev = process.env.NODE_ENV !== 'production';
@@ -21,6 +23,18 @@ const doMode = doDev ? 'development' : 'production';
 /*if (module.hot) {
     module.hot.accept()
 }*/
+const WorkerPool = {
+    workers: 2,
+    workerParallelJobs: 50,
+    poolTimeout: 2000,
+    poolRespawn: false,
+    name: "my-pool"
+};
+threadLoader.warmup(WorkerPool, ['vue-loader', 'babel-loader']);
+
+function resolve(dir) {
+    return path.join(__dirname, '..', dir)
+}
 
 /**
  * getHtmlConfig
@@ -119,13 +133,18 @@ let clientConfig = {
     output: {
         publicPath: './',
         path: path.resolve(__dirname, 'dist/'),
-        filename: doDev ? 'js/[name].js' : 'js/[name].[hash:8].min.js'
+        filename: doDev ? 'js/[name].js' : 'js/[name].[hash:8].min.js',
+        chunkFilename: doDev ? 'js/[name].chunk.js' : 'js/[name].[hash:8].chunk.min.js',
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 use: [
+                    {
+                        loader: 'thread-loader',
+                        options: WorkerPool
+                    },
                     /**
                      * babel-loader
                      * @description
@@ -134,7 +153,11 @@ let clientConfig = {
                         loader: 'babel-loader',
                         options: {
                             presets: [
-                                '@babel/preset-env'
+                                ['@babel/preset-env', {
+                                    targets: {
+                                        browsers: ['> 1%', 'last 2 version'] //具体可以去babel-preset里面查看
+                                    }
+                                }]
                             ]
                         },
                     }
@@ -280,6 +303,10 @@ let clientConfig = {
             {
                 test: /\.vue$/,
                 use: [
+                    {
+                        loader: 'thread-loader',
+                        options: WorkerPool
+                    },
                     /**
                      * vue-loader
                      * @description
@@ -432,6 +459,24 @@ let clientConfig = {
          */
         new VueLoaderPlugin(),
         /**
+         *
+         */
+        new HardSourceWebpackPlugin({
+            cacheDirectory: './node_modules/.cache/hard-source/[confighash]',
+            recordsPath: './node_modules/.cache/hard-source/[confighash]/records.json',
+            configHash: function (webpackConfig) {
+                // node-object-hash on npm can be used to build this.
+                return require('node-object-hash')({sort: false}).hash(webpackConfig);
+            },
+            // 当加载器，插件，其他构建时脚本或其他动态依赖项发生更改时，hard-source需要替换缓存以确保输
+            // 出正确。environmentHash被用来确定这一点。如果散列与先前的构建不同，则将使用新的缓存
+            environmentHash: {
+                root: process.cwd(),
+                directories: [],
+                files: ['package-lock.json', 'yarn.lock'],
+            }
+        }),
+        /**
          * DllReferencePlugin
          * @description 加载 dll 组件
          * @param context manifest文件中请求的上下文
@@ -499,7 +544,8 @@ let clientConfig = {
                 blockJSRequests: false
             }
         }),
-        doDev?function () {}:new MinifyPlugin({}, {}),
+        doDev ? function () {
+        } : new MinifyPlugin({}, {}),
         /**
          * ProvidePlugin
          * @description
@@ -596,7 +642,7 @@ let clientConfig = {
          * @param minSize {number} 大于该值做代码分割
          */
         splitChunks: {
-            chunks: "async",
+            chunks: "all",
             minSize: 30000,
             minChunks: 1,
             maxAsyncRequests: 5,
@@ -641,5 +687,17 @@ let clientConfig = {
     watchOptions:{
         ignored: /node_modules/
     },*/
+    /*node: {
+        // prevent webpack from injecting useless setImmediate polyfill because Vue
+        // source contains it (although only uses it if it's native).
+        setImmediate: false,
+        // prevent webpack from injecting mocks to Node native modules
+        // that does not make sense for the client
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty'
+    }*/
 };
 module.exports = [clientConfig];
