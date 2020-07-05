@@ -50,7 +50,7 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('http://apiv2.chujingyi.cn/v2/disease/footer_recommend').then((req) => {
+                axios.request('http://apiv2.chujingyi.cn/v2/disease/footer_recommend').then((req) => {
                     _self.Disease_footer_recommend = req.data.data;
                 });
             },

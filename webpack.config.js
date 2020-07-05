@@ -23,14 +23,14 @@ const doMode = doDev ? 'development' : 'production';
 /*if (module.hot) {
     module.hot.accept()
 }*/
-const WorkerPool = {
+/*const WorkerPool = {
     workers: 2,
     workerParallelJobs: 50,
     poolTimeout: 2000,
     poolRespawn: false,
     name: "my-pool"
 };
-threadLoader.warmup(WorkerPool, ['vue-loader', 'babel-loader']);
+threadLoader.warmup(WorkerPool, ['vue-loader', 'babel-loader']);*/
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -141,10 +141,10 @@ let clientConfig = {
             {
                 test: /\.js$/,
                 use: [
-                    {
+                    /*{
                         loader: 'thread-loader',
                         options: WorkerPool
-                    },
+                    },*/
                     /**
                      * babel-loader
                      * @description
@@ -303,10 +303,10 @@ let clientConfig = {
             {
                 test: /\.vue$/,
                 use: [
-                    {
+                    /*{
                         loader: 'thread-loader',
                         options: WorkerPool
-                    },
+                    },*/
                     /**
                      * vue-loader
                      * @description
