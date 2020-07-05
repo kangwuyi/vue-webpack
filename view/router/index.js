@@ -5,11 +5,18 @@ import IndexMain from "@/index/Main.vue";
 import InfoMain from "@/info/Main.vue";
 import ListMain from "@/list/Main.vue";
 
+var proxyConfig = require('./proxyConfig')
+
+
+import axios from 'axios';
+
+Vue.prototype.$axios = axios;
 Vue.use(Router)
 
 export default new Router({
     routes: [
-        { path: "/",
+        {
+            path: "/",
             redirect: "/index",
             hidden: true,
             children: []

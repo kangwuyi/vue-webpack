@@ -23,7 +23,6 @@
     </div>
 </template>
 <script>
-    import axios from "axios";
     import CheckReqStatus from "@/tools/checkReqStatus";
     import EventBus from "@/router/eventBus";
 
@@ -47,9 +46,9 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.all([
-                    axios.get('http://apiv2.chujingyi.cn/v2/hospital/search_filters')
-                ]).then(axios.spread(function (
+                _self.$axios.all([
+                    _self.$axios.get('/hospital/search_filters')
+                ]).then(_self.$axios.spread(function (
                     BospitalSearchFilters,
                 ) {
                     let dataFilters = CheckReqStatus(BospitalSearchFilters.data)[0].filters;

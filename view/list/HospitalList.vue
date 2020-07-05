@@ -41,7 +41,6 @@
 </template>
 <script>
     import LatestNews from "@/list/LatestNews";
-    import axios from "axios";
     import CheckReqStatus from "@/tools/checkReqStatus";
     import EventBus from "@/router/eventBus";
 
@@ -70,9 +69,9 @@
         methods: {
             getData(country, countryValue, dept, deptValue, page) {
                 let _self = this;
-                axios.all([
-                    axios.get('http://apiv2.chujingyi.cn/v2/hospital/list?' + country + '=' + countryValue + '&' + dept + '=' + deptValue + '&page=' + page)
-                ]).then(axios.spread(function (
+                _self.$axios.all([
+                    _self.$axios.get('/v2/hospital/list?' + country + '=' + countryValue + '&' + dept + '=' + deptValue + '&page=' + page)
+                ]).then(_self.$axios.spread(function (
                     HospitalList,
                 ) {
                     let HospitalListFilters = CheckReqStatus(HospitalList.data);
@@ -111,6 +110,7 @@
                 let _self = this;
                 EventBus.$on('allCountry', (message) => {
                     _self.allCountryCache = message;
+                    _self.currentPage = 1;
                     _self.getData(
                         message.isCountry,
                         message.isCountryValue,

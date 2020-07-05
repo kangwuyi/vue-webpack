@@ -35,7 +35,6 @@
 </template>
 
 <script>
-    import axios from "axios";
 
     export default {
         name: "ly-footer",
@@ -50,7 +49,8 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.request('http://apiv2.chujingyi.cn/v2/disease/footer_recommend').then((req) => {
+                _self.$axios.get('/disease/footer_recommend').then((req) => {
+                    console.log(req);
                     _self.Disease_footer_recommend = req.data.data;
                 });
             },

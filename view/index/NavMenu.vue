@@ -51,7 +51,7 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('http://apiv2.chujingyi.cn/v2/body_parts/all').then((req) => {
+                _self.$axios.get('/body_parts/all').then((req) => {
                     let BPA = req.data.data.list;
                     let publicSrc = '../../noimgs/';
                     const srcArr = [

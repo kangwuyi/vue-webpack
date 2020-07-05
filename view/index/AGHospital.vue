@@ -30,8 +30,6 @@
     </div>
 </template>
 <script>
-    import axios from "axios";
-
     export default {
         name: "ly-ag-hospital",
         data: function () {
@@ -47,7 +45,7 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('http://apiv2.chujingyi.cn/v2/home/best_hospital').then((req) => {
+                _self.$axios.get('/home/best_hospital').then((req) => {
                     let BPA = [
                         {mark: 'AGH', child: [], name: "出国看病-国外最好综合医院", nameen: "Authoritative General Hospital"},
                         {mark: 'CCH', child: [], name: "肿瘤癌症专科医院", nameen: "Cancer Hospital"},

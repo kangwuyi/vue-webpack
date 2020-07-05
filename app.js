@@ -5,6 +5,7 @@
 let express = require('express');
 let ejs = require('ejs');
 let bodyParser = require('body-parser');
+let axios = require('axios');
 let path = require('path');
 let fs = require('fs');
 let app = express();
@@ -16,13 +17,6 @@ const doDev = process.env.NODE_ENV !== 'production';
 
 const jsonParser = bodyParser.json();
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 app.engine('html', ejs.__express);
 app.set('view engine', 'html');
 
@@ -35,71 +29,32 @@ app.get('/', (req, res) => {
         title: '主页'
     });
 });
-app.post('/AuthoritativeGeneralHospital',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/AuthoritativeGeneralHospital');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/ChildrensHospital',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/ChildrensHospital');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/CardiovascularHospital',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/CardiovascularHospital');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/CancerHospital',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/CancerHospital');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/Cuttingedgeinformation',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/Cuttingedgeinformation');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/Cuttingedgeinformation2',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/index/Cuttingedgeinformation2');
-    res.send(JSON.stringify(analogdata));
-});
-app.get('/info', (req, res) => {
-    res.render('./info', {
-        title: '主页'
+app.get('/disease/footer_recommend',(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/disease/footer_recommend').then((reqData) => {
+        return res.send(reqData.data);
     });
 });
-app.post('/Recommendedhospitallymphomatreatment',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/info/Recommendedhospitallymphomatreatment');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/allCountry',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/info/country');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/articleInfo',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/info/articleInfo');
-    res.send(JSON.stringify(analogdata));
-});
-app.get('/list', (req, res) => {
-    res.render('./list', {
-        title: '主页'
+app.get('/home/best_hospital',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/home/best_hospital').then((reqData) => {
+        return res.send(reqData.data);
     });
 });
-app.post('/allDepartment',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/info/department');
-    res.send(JSON.stringify(analogdata));
+app.get('/body_parts/all',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/body_parts/all').then((reqData) => {
+        return res.send(reqData.data);
+    });
 });
-app.post('/articleList',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/list/articleList');
-    res.send(JSON.stringify(analogdata));
+app.get('/hospital/search_filters',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/hospital/search_filters').then((reqData) => {
+        return res.send(reqData.data);
+    });
 });
-app.post('/FriendLinks',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/list/friendshiplinks');
-    res.send(JSON.stringify(analogdata));
+app.get('/v2/hospital/list',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/hospital/list?' +
+        Object.keys(req.query)[0] + '=' + Object.values(req.query)[0]
+        + '&' + Object.keys(req.query)[1] + '=' + Object.values(req.query)[1]
+        + '&'+Object.keys(req.query)[2]+'=' + Object.values(req.query)[2]).then((reqData) => {
+        return res.send(reqData.data);
+    });
 });
-app.post('/NewJoinDoctor',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/list/newJoinDoctor');
-    res.send(JSON.stringify(analogdata));
-});
-app.post('/NewJoinHospital',jsonParser,(req, res) => {
-    let analogdata = require('./analogdata/list/newJoinHospital');
-    res.send(JSON.stringify(analogdata));
-});
-
 app.listen(3000); // 监听3000端口

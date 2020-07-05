@@ -562,7 +562,8 @@ let clientConfig = {
         /**
          * 开启 gzip 压缩
          */
-        new CompressionWebpackPlugin({ //gzip 压缩
+        doDev ? function () {
+        } :new CompressionWebpackPlugin({ //gzip 压缩
             algorithm: 'gzip',
             test: new RegExp(
                 '\\.(js|css)$'    //压缩 js 与 css
@@ -698,6 +699,7 @@ let clientConfig = {
         net: 'empty',
         tls: 'empty',
         child_process: 'empty'
-    }*/
+    },*/
+
 };
 module.exports = [clientConfig];
