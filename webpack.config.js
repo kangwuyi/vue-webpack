@@ -136,6 +136,14 @@ let clientConfig = {
         filename: doDev ? 'js/[name].js' : 'js/[name].[hash:8].min.js',
         chunkFilename: doDev ? 'js/[name].chunk.js' : 'js/[name].[hash:8].chunk.min.js',
     },
+    /**
+     * 不打包 vue.js, vue-router, element-ui 库
+     */
+    externals: {
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'element-ui': 'ELEMENT',
+    },
     module: {
         rules: [
             {
@@ -462,8 +470,8 @@ let clientConfig = {
          *
          */
         new HardSourceWebpackPlugin({
-            cacheDirectory: './node_modules/.cache/hard-source/[confighash]',
-            recordsPath: './node_modules/.cache/hard-source/[confighash]/records.json',
+            cacheDirectory: '../node_modules/.cache/hard-source/[confighash]',
+            recordsPath: '../node_modules/.cache/hard-source/[confighash]/records.json',
             configHash: function (webpackConfig) {
                 // node-object-hash on npm can be used to build this.
                 return require('node-object-hash')({sort: false}).hash(webpackConfig);
@@ -495,6 +503,10 @@ let clientConfig = {
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require('./public/dll/axios-manifest.json')
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/vue-manifest.json')
         }),
         /**
          * AddAssetHtmlPlugin
@@ -545,7 +557,13 @@ let clientConfig = {
             }
         }),
         doDev ? function () {
-        } : new MinifyPlugin({}, {}),
+        } : new MinifyPlugin({
+            removeConsole:true,
+            removeDebugger:true,
+        }, {
+            comments:false,
+            sourceMap:false,
+        }),
         /**
          * ProvidePlugin
          * @description

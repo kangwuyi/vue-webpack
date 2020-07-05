@@ -13,8 +13,8 @@ module.exports = {
     target: 'web',
     mode: doMode,
     entry: {
-        //element: ['./public/js/element.js'],
-        //vue_build: ["vue", "element-ui"],
+        element: ['./public/js/element.js'],
+        vue: ["./public/js/vue"],
         axios: ["./public/js/axios.min.js"],
         element_ui: ['./public/css/element.css'],
         public_style: ['./public/css/reset.css', './public/css/common.css']
@@ -90,7 +90,7 @@ module.exports = {
          * FixStyleOnlyEntriesPlugin
          * @description 以 css 为入口文件时，会输出多余的 js 文件，删之
          */
-        //new FixStyleOnlyEntriesPlugin(),
+        new FixStyleOnlyEntriesPlugin(),
     ],
     optimization: {
         splitChunks: {
