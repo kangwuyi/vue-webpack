@@ -49,8 +49,7 @@
         methods: {
             renderData() {
                 let _self = this;
-                _self.$axios.get('/disease/footer_recommend').then((req) => {
-                    console.log(req);
+                axios.get('/disease/footer_recommend').then((req) => {
                     _self.Disease_footer_recommend = req.data.data;
                 });
             },

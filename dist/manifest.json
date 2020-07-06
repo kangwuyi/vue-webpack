@@ -1,18 +1,14 @@
 {
-  "default~index~index_page_script.css": "./default~index~index_page_script.b0876e4a5b920e21cd67.min.css",
-  "default~index~index_page_script.js": "./js/default~index~index_page_script.b0876e4a.chunk.min.js",
-  "index.js": "./js/index.b0876e4a.min.js",
-  "index_page_script.js": "./js/index_page_script.b0876e4a.min.js",
-  "main_style.css": "./css/main_style.b0876e4a5b920e21cd67.min.css",
-  "css/main_style.b0876e4a5b920e21cd67.min.css.gz": "./css/main_style.b0876e4a5b920e21cd67.min.css.gz",
-  "dll/Vue.dll.min.js": "./dll/Vue.dll.min.js",
-  "dll/Vue.dll.min.js.gz": "./dll/Vue.dll.min.js.gz",
-  "dll/axios.dll.min.js": "./dll/axios.dll.min.js",
-  "dll/axios.dll.min.js.gz": "./dll/axios.dll.min.js.gz",
-  "dll/element_ui.8d0bab2de39c32c5f7ae.dll.min.css": "./dll/element_ui.8d0bab2de39c32c5f7ae.dll.min.css",
-  "dll/element_ui.8d0bab2de39c32c5f7ae.dll.min.css.gz": "./dll/element_ui.8d0bab2de39c32c5f7ae.dll.min.css.gz",
-  "dll/public_style.8d0bab2de39c32c5f7ae.dll.min.css": "./dll/public_style.8d0bab2de39c32c5f7ae.dll.min.css",
+  "default~index~index_page_script.css": "./default~index~index_page_script.bb042f0a665191265511.min.css",
+  "default~index~index_page_script.js": "./js/default~index~index_page_script.bb042f0a.chunk.min.js",
+  "index.js": "./js/index.bb042f0a.min.js",
+  "index_page_script.js": "./js/index_page_script.bb042f0a.min.js",
+  "main_style.css": "./css/main_style.bb042f0a665191265511.min.css",
+  "css/main_style.bb042f0a665191265511.min.css.gz": "./css/main_style.bb042f0a665191265511.min.css.gz",
+  "dll/element_style.dll.min.css": "./dll/element_style.dll.min.css",
+  "dll/element_style.dll.min.css.gz": "./dll/element_style.dll.min.css.gz",
+  "dll/public_style.dll.min.css": "./dll/public_style.dll.min.css",
   "imgs/index.scss": "./imgs/banner7bc56.jpg",
   "index.html": "./index.html",
-  "js/default~index~index_page_script.b0876e4a.chunk.min.js.gz": "./js/default~index~index_page_script.b0876e4a.chunk.min.js.gz"
+  "js/default~index~index_page_script.bb042f0a.chunk.min.js.gz": "./js/default~index~index_page_script.bb042f0a.chunk.min.js.gz"
 }

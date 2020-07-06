@@ -21,12 +21,11 @@
                 <a href="#" target="_blank">More>></a>
             </h2>
             <ul>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
+                <li v-for="item in ArticleList">
+                    <a v-bind:href="item.category.url" target="_blank" class="fs12">
+                        <span>></span> {{item.title}}
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="title-lists">
@@ -49,6 +48,34 @@
 <script>
     export default {
         name: "ly-latest-news",
+        data: function () {
+            return {
+                ArticleList: {},
+                CasesList: {},
+            }
+        },
+        // 监听路由，每次进入页面调用方法，放在method里
+        mounted() {
+            this.renderData();
+        },
+
+        methods: {
+            renderData() {
+                let _self = this;
+                axios.all([
+                    axios.get('/article/list?page_size=5'),
+                    axios.get('/cases/list?page_size=5'),
+                ]).then(axios.spread(function (
+                    ArticleList,
+                    CasesList,
+                ) {
+                    _self.ArticleList = ArticleList.data.data;
+                    _self.CasesList = CasesList.data.data.list;
+                }));
+                return console.log('get data end');
+            }
+
+        }
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>

@@ -1,19 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
 
 import IndexMain from "@/index/Main.vue";
 import InfoMain from "@/info/Main.vue";
 import ListMain from "@/list/Main.vue";
 
-var proxyConfig = require('./proxyConfig')
 
 
-import axios from 'axios';
-
-Vue.prototype.$axios = axios;
-Vue.use(Router)
-
-export default new Router({
+export default new VueRouter({
     routes: [
         {
             path: "/",

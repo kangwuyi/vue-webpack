@@ -46,9 +46,9 @@
         methods: {
             renderData() {
                 let _self = this;
-                _self.$axios.all([
-                    _self.$axios.get('/hospital/search_filters')
-                ]).then(_self.$axios.spread(function (
+                axios.all([
+                    axios.get('/hospital/search_filters')
+                ]).then(axios.spread(function (
                     BospitalSearchFilters,
                 ) {
                     let dataFilters = CheckReqStatus(BospitalSearchFilters.data)[0].filters;

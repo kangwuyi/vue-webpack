@@ -74,12 +74,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
         },
         cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
-        /*chunksSortMode: function (chunk1, chunk2) {
-            var order = ['common', 'public', 'index'];
-            var order1 = order.indexOf(chunk1.names[0]);
-            var order2 = order.indexOf(chunk2.names[0]);
-            return order1 - order2;
-        }*/
+        //chunksSortMode: 'manual'
     };
 }
 
@@ -88,25 +83,25 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
  * @type {({scope: string, name: string, js: string}|{scope: string, name: string, js: string}|{css: string, scope: string, name: string, js: string})[]}
  */
 const externalConfig = [
-    /*{
+    {
         name: 'vue',
         scope: 'Vue',
         js: 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js'
-    },*/
-    /*{
+    },
+    {
         name: 'vue-router',
         scope: 'VueRouter',
         js: 'https://cdn.jsdelivr.net/npm/vue-router@3.3.4/dist/vue-router.min.js'
-    },*/
-    /*{
+    },
+    {
         name: 'axios',
         scope: 'axios',
         js: 'https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'
-    },*/
+    },
     {
         name: 'element-ui',
-        scope: 'ELEMENT',
-        js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.1/index.js',
+        scope: 'Element',
+        js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js',
         //css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
     },
 ];
@@ -135,6 +130,7 @@ let clientConfig = {
         path: path.resolve(__dirname, 'dist/'),
         filename: doDev ? 'js/[name].js' : 'js/[name].[hash:8].min.js',
         chunkFilename: doDev ? 'js/[name].chunk.js' : 'js/[name].[hash:8].chunk.min.js',
+        libraryTarget: "umd"
     },
     /**
      * 不打包 vue.js, vue-router, element-ui 库
@@ -143,6 +139,7 @@ let clientConfig = {
         'vue': 'Vue',
         'vue-router': 'VueRouter',
         'element-ui': 'ELEMENT',
+        'axios': 'axios',
     },
     module: {
         rules: [
@@ -451,6 +448,55 @@ let clientConfig = {
             paths: glob.sync(`${path.join(__dirname, 'dist')}/!**!/!*`, {nodir: true}),
         }),*/
         /**
+         * DllReferencePlugin
+         * @description 加载 dll 组件
+         * @param context manifest文件中请求的上下文
+         * @param manifest 编译时的一个用于加载的JSON的manifest的绝对路径
+         * @param name dll暴露的地方的名称(默认值为manifest.name)
+         * @param scope dll中内容的前缀
+         */
+        /*new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/element_style-manifest.json')
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/public_style-manifest.json')
+        }),*/
+        /*new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/axios-manifest.json')
+        }),*/
+        /**
+         * AddAssetHtmlPlugin
+         * @description dll 组件插入 html 文档
+         * @param publicPath 浏览器路径
+         */
+        new AddAssetHtmlPlugin([
+            {
+                filepath: path.resolve(__dirname, './public/dll/css/*.dll.min.css'),
+                outputPath: 'dll',
+                publicPath: path.posix.join('./', 'dll'),
+                includeSourcemap: doDev,
+                hash: true,
+                typeOfAsset: 'css',
+                /*attributes: {
+                    nomodule: true,
+                },*/
+            },
+            /*{
+                filepath: path.resolve(__dirname, './public/dll/js/!*.dll.min.js'),
+                outputPath: 'dll',
+                publicPath: path.posix.join('./', 'dll'),
+                includeSourcemap: doDev,
+                hash: true,
+                typeOfAsset: 'js',
+                /!*attributes: {
+                    nomodule: true,
+                },*!/
+            }*/
+        ]),
+        /**
          * HtmlWebpackPlugin
          * @description 打包压缩 html 文档
          * @param 1 {string} 打包生成的文件
@@ -484,59 +530,6 @@ let clientConfig = {
                 files: ['package-lock.json', 'yarn.lock'],
             }
         }),
-        /**
-         * DllReferencePlugin
-         * @description 加载 dll 组件
-         * @param context manifest文件中请求的上下文
-         * @param manifest 编译时的一个用于加载的JSON的manifest的绝对路径
-         * @param name dll暴露的地方的名称(默认值为manifest.name)
-         * @param scope dll中内容的前缀
-         */
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./public/dll/element_ui-manifest.json')
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./public/dll/public_style-manifest.json')
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./public/dll/axios-manifest.json')
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./public/dll/Vue-manifest.json')
-        }),
-        /**
-         * AddAssetHtmlPlugin
-         * @description dll 组件插入 html 文档
-         * @param publicPath 浏览器路径
-         */
-        new AddAssetHtmlPlugin([
-            {
-                filepath: path.resolve(__dirname, './public/dll/*.dll.min.css'),
-                outputPath: 'dll',
-                publicPath: path.posix.join('./', 'dll'),
-                includeSourcemap: doDev,
-                hash: true,
-                typeOfAsset: 'css',
-                /*attributes: {
-                    nomodule: true,
-                },*/
-            },
-            {
-                filepath: path.resolve(__dirname, './public/dll/*.dll.min.js'),
-                outputPath: 'dll',
-                publicPath: path.posix.join('./', 'dll'),
-                includeSourcemap: doDev,
-                hash: true,
-                typeOfAsset: 'js',
-                /*attributes: {
-                    nomodule: true,
-                },*/
-            }
-        ]),
         /**
          * HtmlCriticalWebpackPlugin
          * @description css 插入文档，减少调用 .css 文件

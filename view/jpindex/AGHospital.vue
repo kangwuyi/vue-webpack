@@ -12,13 +12,13 @@
                     <div class="img-list" v-for="childItem in item.child">
                         <div>
                             <img v-bind:src="childItem.picture" width="248" height="190"/>
-                            <span>第{{childItem.rank}}名</span>
+                            <span>{{childItem.name}}</span>
                         </div>
                         <strong>{{childItem.name}}</strong>
                         <ul>
-                            <li v-for="departmentItem in childItem.rankings">
-                                <span class="l-name">{{departmentItem.name}}</span>
-                                <span class="l-num">第{{departmentItem.overall_rank_count}}名</span>
+                            <li v-for="departmentItem in item.department" :key="departmentItem._id">
+                                <span class="l-name">{{childItem.name}}</span>
+                                <span class="l-num">{{departmentItem.rank}}</span>
                             </li>
                         </ul>
                     </div>
@@ -70,21 +70,86 @@
                             default:
                         }
                     }
-                    _self.Home_best_hospital = BPA;
+                    _self.data = BPA;
                 });
             }
         },
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
-    .img-list img{ display: block;}
-    .img-list strong{ color: #333; font-size: 18px; padding-top: 20px; display: block; font-weight: normal;}
-    .img-list ul li{float: left; border-radius:2px; border:1px solid rgba(227,233,238,1);  margin: 10px 10px 0 0}
-    .img-list ul li span{ padding: 6px; float: left; font-size: 14px}
-    .img-list ul li .l-name{background:rgba(247,248,252,1); color: #405D76;}
-    .img-list ul li .l-num{color: #04AFA3}
+    div#NavMenu .box-content{
+        .el-submenu {
+            &.is-opened {
 
+            }
+
+            .el-menu--vertical {
+                left: 198px !important;
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                top: 0;
+                width: 320px;
+                background: #fff;
+
+                ul.el-menu--popup {
+                    position: relative;
+                    left: 0;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    border: none !important;
+
+                    &:after {
+                        display: block;
+                        content: " ";
+                        clear: both;
+                    }
+
+                    li {
+                        display: block;
+                        float: left;
+                        margin: 10px 10px 0 0;
+                        list-style: none;
+
+                        &.nav-menu-child-title {
+                            display: block;
+                            float: left;
+                            min-width: 50px !important;
+                            color: #333;
+                            width: 140px;
+                            margin: 0 0 0 16px;
+                            padding: 0 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
 <style lang="scss" rel="stylesheet/scss" scoped>
+    div#NavMenu {
+        background: url('../../dist/noimgs/banner.jpg') no-repeat center; height: 370px; background-size: cover;
+        .box-content{
 
+            .el-menu-vertical {
+                width: 198px;
+
+            }
+
+            .el-submenu__title {
+                img {
+                    float: left;
+                    margin-top: 20px;
+                }
+            }
+
+            .nav-menu-title {
+                margin-left: 20px !important;
+                height: auto !important;
+                width: auto !important;
+                overflow: hidden !important;
+                visibility: visible !important;
+            }
+        }
+    }
 </style>

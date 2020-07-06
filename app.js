@@ -17,6 +17,14 @@ const doDev = process.env.NODE_ENV !== 'production';
 
 const jsonParser = bodyParser.json();
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.engine('html', ejs.__express);
 app.set('view engine', 'html');
 
@@ -54,6 +62,21 @@ app.get('/v2/hospital/list',jsonParser,(req, res) => {
         Object.keys(req.query)[0] + '=' + Object.values(req.query)[0]
         + '&' + Object.keys(req.query)[1] + '=' + Object.values(req.query)[1]
         + '&'+Object.keys(req.query)[2]+'=' + Object.values(req.query)[2]).then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
+app.get('/article/list',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/article/list?page_size=5').then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
+app.get('/cases/list',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/cases/list?page_size=5').then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
+app.get('/recommend/hospital',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/hospital/recommend/hospital?url_name=mayo-clinic ').then((reqData) => {
         return res.send(reqData.data);
     });
 });

@@ -115,15 +115,6 @@
             }
         }
     }
-
-    .h3-box {
-        padding: 40px 0 20px 0 !important;
-
-        h3 {
-            padding: 0 !important;
-            margin-right: 8px !important;
-        }
-    }
 </style>
 <style lang="scss" rel="stylesheet/scss" scoped>
     div#ServiceItems {
@@ -138,6 +129,16 @@
                     margin-top: 0;
                 }
             }
+        }
+
+        .h3-box {
+            padding: 40px 0 20px 0;
+
+        }
+
+        h3 {
+            padding: 0;
+            margin-right: 8px;
         }
     }
 </style>

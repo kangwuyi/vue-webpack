@@ -1,41 +1,8 @@
 <template>
     <div class="box clearfix">
         <div class="clearfix">
-            <div class="content-rank">
-                <div class="rank-title">美国-约翰霍普金斯医院</div>
-                <ul class="rank-list clearfix">
-                    <li>
-                        <span class="l-name">肿瘤科</span><span class="l-num">第2名</span>
-                    </li>
-                    <li>
-                        <span class="l-name">乳腺外科</span><span class="l-num">第2名</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-rank">
-                <div class="rank-title">美国-约翰霍普金斯医院</div>
-                <ul class="rank-list clearfix">
-                    <li>
-                        <span class="l-name">肿瘤科</span><span class="l-num">第2名</span>
-                    </li>
-                    <li>
-                        <span class="l-name">乳腺外科</span><span class="l-num">第2名</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-rank">
-                <div class="rank-title">美国-约翰霍普金斯医院</div>
-                <ul class="rank-list clearfix">
-                    <li>
-                        <span class="l-name">肿瘤科</span><span class="l-num">第2名</span>
-                    </li>
-                    <li>
-                        <span class="l-name">乳腺外科</span><span class="l-num">第2名</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-rank">
-                <div class="rank-title ">美国-约翰霍普金斯医院</div>
+            <div class="content-rank" v-for="item in RecommendHospital">
+                <div class="rank-title">{{item.country_map.title}}-{{item.name}}</div>
                 <ul class="rank-list clearfix">
                     <li>
                         <span class="l-name">肿瘤科</span><span class="l-num">第2名</span>
@@ -51,6 +18,31 @@
 <script>
     export default {
         name: "ly-info-ids",
+        data: function () {
+            return {
+                RecommendHospital: {},
+            }
+        },
+        // 监听路由，每次进入页面调用方法，放在method里
+        mounted() {
+            this.renderData();
+        },
+
+        methods: {
+            renderData() {
+                let _self = this;
+                axios.all([
+                    axios.get('/recommend/hospital'),
+                ]).then(axios.spread(function (
+                    RecommendHospital
+                ) {
+                    console.log(RecommendHospital)
+                    _self.RecommendHospital = RecommendHospital.data.data.list.slice(0,4);
+                }));
+                return console.log('get data end');
+            }
+
+        }
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>

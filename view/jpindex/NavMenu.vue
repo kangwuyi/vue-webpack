@@ -64,6 +64,7 @@
                     for (let i = 0; i < BPA.length; i++) {
                         BPA[i]['src'] = BS(srcArr, ('' + BPA[i].id));
                     }
+                    console.log(BPA)
                     _self.Body_parts_all = BPA;
                 });
             },

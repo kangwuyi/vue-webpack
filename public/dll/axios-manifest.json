@@ -1,1 +1,1 @@
-{"name":"axios_8d0bab2de39c32c5f7ae","content":{"./node_modules/process/browser.js":{"id":2,"buildMeta":{"providedExports":true}},"./public/js/axios.min.js":{"id":8,"buildMeta":{"providedExports":true}}}}
+{"name":"axios","content":{"./public/js/axios.js":{"id":2,"buildMeta":{"providedExports":true}},"./node_modules/process/browser.js":{"id":3,"buildMeta":{"providedExports":true}},"./node_modules/webpack/buildin/module.js":{"id":4,"buildMeta":{"providedExports":true}}}}

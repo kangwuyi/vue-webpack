@@ -2,7 +2,7 @@
     <div class="box clearfix">
         <div class="list-box pull-left">
             <!-- list -->
-            <a class="list-div clearfix" href="#" target="_blank" v-for="item in HospitalList">
+            <a class="list-div clearfix" :href="item.url" target="_blank" v-for="item in HospitalList">
                 <img :src="item.picture" width="190"/>
                 <div class="list-info">
                     <h3 class="clearfix">
@@ -69,11 +69,12 @@
         methods: {
             getData(country, countryValue, dept, deptValue, page) {
                 let _self = this;
-                _self.$axios.all([
-                    _self.$axios.get('/v2/hospital/list?' + country + '=' + countryValue + '&' + dept + '=' + deptValue + '&page=' + page)
-                ]).then(_self.$axios.spread(function (
+                axios.all([
+                    axios.get('/v2/hospital/list?' + country + '=' + countryValue + '&' + dept + '=' + deptValue + '&page=' + page)
+                ]).then(axios.spread(function (
                     HospitalList,
                 ) {
+                    console.log(HospitalList)
                     let HospitalListFilters = CheckReqStatus(HospitalList.data);
                     _self.total = HospitalListFilters.total;
                     _self.currentPage = HospitalListFilters.current;
@@ -87,7 +88,7 @@
                 //console.log(this)
             },
             handleSizeChange(val) {
-                this.pageSize=val;
+                this.pageSize = val;
                 this.getData(
                     this.allCountryCache.isCountry,
                     this.allCountryCache.isCountryValue,
@@ -97,7 +98,7 @@
                 )
             },
             handleCurrentChange(val) {
-                this.currentPage=val;
+                this.currentPage = val;
                 this.getData(
                     this.allCountryCache.isCountry,
                     this.allCountryCache.isCountryValue,
@@ -126,5 +127,12 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
     .info-nav-menu-box {
 
+    }
+
+    .list-info {
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
     }
 </style>
