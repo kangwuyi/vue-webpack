@@ -72,7 +72,7 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
             useShortDoctype: true, //使用短的文档类型，默认false
             //attrs: ['img:src']
         },
-        //cdnConfig: cdnConfig, // cdn配置
+        cdnConfig: cdnConfig, // cdn配置
         //onlyCss: true, //dev下只加载css
         /*chunksSortMode: function (chunk1, chunk2) {
             var order = ['common', 'public', 'index'];
@@ -88,27 +88,27 @@ const getHtmlConfig = function (filename, template, title, chunks, cdnConfig, ha
  * @type {({scope: string, name: string, js: string}|{scope: string, name: string, js: string}|{css: string, scope: string, name: string, js: string})[]}
  */
 const externalConfig = [
-    {
+    /*{
         name: 'vue',
         scope: 'Vue',
         js: 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js'
-    },
+    },*/
     /*{
         name: 'vue-router',
         scope: 'VueRouter',
         js: 'https://cdn.jsdelivr.net/npm/vue-router@3.3.4/dist/vue-router.min.js'
     },*/
-    {
+    /*{
         name: 'axios',
         scope: 'axios',
         js: 'https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'
-    },
-    /*{
+    },*/
+    {
         name: 'element-ui',
         scope: 'ELEMENT',
         js: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.1/index.js',
         //css: 'https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css'
-    },*/
+    },
 ];
 /**
  * clientConfig
@@ -506,7 +506,7 @@ let clientConfig = {
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./public/dll/vue-manifest.json')
+            manifest: require('./public/dll/Vue-manifest.json')
         }),
         /**
          * AddAssetHtmlPlugin

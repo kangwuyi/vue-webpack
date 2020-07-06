@@ -13,8 +13,8 @@ module.exports = {
     target: 'web',
     mode: doMode,
     entry: {
-        element: ['./public/js/element.js'],
-        vue: ["./public/js/vue"],
+        //element: ['./public/js/element.js'],
+        Vue: ["./public/js/vue"],
         axios: ["./public/js/axios.min.js"],
         element_ui: ['./public/css/element.css'],
         public_style: ['./public/css/reset.css', './public/css/common.css']
@@ -22,7 +22,7 @@ module.exports = {
     output: {
         path: dllPath,
         filename: '[name].dll.' + (doDev ? '' : 'min') + '.js',
-        library: '[name]_[hash]'
+        library: '[name]'
     },
     module: {
         rules: [
