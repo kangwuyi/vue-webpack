@@ -18,6 +18,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const threadLoader = require('thread-loader');
 /*const middleware = require('webpack-dev-middleware');
 const instance = middleware(compiler);*/
+const AXIOSHOST = process.env.HOST;
 const doDev = process.env.NODE_ENV !== 'production';
 const doMode = doDev ? 'development' : 'production';
 /*if (module.hot) {
@@ -35,7 +36,6 @@ threadLoader.warmup(WorkerPool, ['vue-loader', 'babel-loader']);*/
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
-
 /**
  * getHtmlConfig
  * @description HtmlWebpackPlugin 配置参数
@@ -421,6 +421,12 @@ let clientConfig = {
         } : new FixStyleOnlyEntriesPlugin({
             //extensions: ['css.js'],
             ignore: 'webpack-hot-middleware'
+        }),
+        /**
+         * 配置全局常量
+         */
+        new webpack.DefinePlugin({
+            'axios_host':JSON.stringify(AXIOSHOST),
         }),
         /**
          * MiniCssExtractPlugin

@@ -51,6 +51,9 @@
                 let _self = this;
                 axios.get('/disease/footer_recommend').then((req) => {
                     _self.Disease_footer_recommend = req.data.data;
+                }).catch((error)=>{
+                    console.log(error);
+                    _self.errorMessage = error;
                 });
             },
         },

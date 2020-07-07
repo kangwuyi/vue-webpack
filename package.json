@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "export NODE_ENV=development && webpack --mode development --config webpack.config.js",
-    "build": "export NODE_ENV=production && webpack --mode production --config webpack.config.js",
+    "dev": "export NODE_ENV=development HOST=localhost && webpack --mode development --config webpack.config.js",
+    "build": "export NODE_ENV=production HOST=localhost && webpack --mode production --config webpack.config.js",
+    "sshbuild": "export NODE_ENV=production HOST=152.32.132.166 && webpack --mode production --config webpack.config.js",
     "builddis": "export NODE_ENV=production && webpack --mode production --display-provided-exports --config webpack.config.js",
     "dlldev": "export NODE_ENV=development && webpack --mode development --config webpack.dll.config.js",
     "dllbuild": "export NODE_ENV=production && webpack --mode production --config webpack.dll.config.js",

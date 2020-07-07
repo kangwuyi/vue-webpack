@@ -3,7 +3,7 @@ import IndexMain from "@/index/Main.vue";
 import InfoMain from "@/info/Main.vue";
 import ListMain from "@/list/Main.vue";
 
-
+axios.defaults.baseURL='http://'+axios_host+':3000';
 
 export default new VueRouter({
     routes: [
