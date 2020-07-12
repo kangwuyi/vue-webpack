@@ -12,7 +12,7 @@ var wgentry = require('webpack-glob-entry'); // 模糊匹配
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 var CompressionWebpackPlugin = require('compression-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+//const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const threadLoader = require('thread-loader');
@@ -521,7 +521,7 @@ let clientConfig = {
         /**
          *
          */
-        new HardSourceWebpackPlugin({
+        /*new HardSourceWebpackPlugin({
             cacheDirectory: '../node_modules/.cache/hard-source/[confighash]',
             recordsPath: '../node_modules/.cache/hard-source/[confighash]/records.json',
             configHash: function (webpackConfig) {
@@ -535,7 +535,7 @@ let clientConfig = {
                 directories: [],
                 files: ['package-lock.json', 'yarn.lock'],
             }
-        }),
+        }),*/
         /**
          * HtmlCriticalWebpackPlugin
          * @description css 插入文档，减少调用 .css 文件
