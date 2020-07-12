@@ -7,7 +7,9 @@
                 <a target="_blank">More>></a>
             </h2>
             <div>
-                <img v-bind:src="ArticleList[0].image" width="223" height="280"/>
+                <div v-for="(item, index) in ArticleList" v-if="index===0">
+                    <img :src="item.image" width="223" height="280"/>
+                </div>
                 <ul>
                     <li v-for="item in ArticleList">
                         <a v-bind:href="item.category.url" target="_blank">
@@ -24,7 +26,9 @@
                 <a target="_blank">More>></a>
             </h2>
             <div>
-                <img v-bind:src="CasesList[0].image" width="223" height="280"/>
+                <div v-for="(item, index) in CasesList" v-if="index===0">
+                    <img :src="item.picture" width="223" height="280"/>
+                </div>
                 <ul>
                     <li v-for="item in CasesList">
                         <a target="_blank">
@@ -61,10 +65,11 @@
                     ArticleList,
                     CasesList,
                 ) {
+                  console.log(ArticleList)
+                  console.log(CasesList)
                     _self.ArticleList = ArticleList.data.data;
                     _self.CasesList = CasesList.data.data.list;
                 }));
-                return console.log('get data end');
             }
 
         }

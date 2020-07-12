@@ -1,41 +1,15 @@
 <template>
     <div class="box clearfix">
         <div class="content-box pull-left">
-            <h4 class="c-6">FDA批准了针对淋巴瘤患者的第二种CAR-T细胞疗法</h4>
+            <h4 class="c-6">{{CasesDetail.title}}</h4>
             <p class="c-9">淋巴瘤治疗推荐医院：</p>
             <ly-info-ids></ly-info-ids>
             <ly-all-country></ly-all-country>
             <!-- content -->
-            <p>
-                美国食品和药物管理局已经批准了针对某些淋巴瘤患者的称为Tisagenlecleucel（Kymriah）的CAR T细胞疗法 。该治疗适用于患有 复发性或难治性大B细胞淋巴瘤的 患者，
-                包括弥漫性大B细胞淋巴瘤（DLBCL），高级别B细胞淋巴瘤和滤泡性淋巴瘤引起的DLBCL。 Kymriah是一种高度专业化的个性化CAR
-                T细胞疗法，它使用经过特殊修饰的T细胞（人体免疫系统的一部分）来对抗癌症。从血液中收集患者的T细胞样本，然后对其进行修饰以在其表面产生一种称为嵌合抗原受体（CARs）的特殊结构。将这些CAR
-                T细胞重新注入患者体内后，新的受体使它们能够锁定在患者肿瘤细胞上的特定抗原上并杀死它们。
-                “我们正在取得非常重要的进步，我为能够为没有其他有效治疗方法的患者提供另一种选择感到兴奋和鼓舞，”达娜（Dana）免疫效应细胞治疗计划医学总监Caron A. Jacobson博士说。
-                -法伯/布莱根妇女癌症中心（DF / BWCC）。 DF / BWCC是经过认证的CAR T细胞疗法的治疗中心。
-                在针对具有治疗抗性或复发性弥漫性大B细胞淋巴瘤的患者的临床试验中，53％的患者对Kymriah有反应，其中40％的患者获得了完全反应-这意味着没有癌症迹象。
-                Kymriah先前已被批准用于25岁以下的B细胞急性淋巴细胞白血病（ALL）患者。去年，FDA还批准了另一种CAR T细胞疗法Yescarta用于侵袭性难治性成人非霍奇金淋巴瘤 。 DF /
-                BWCC和Dana-Farber / Boston儿童癌症和血液病中心是Kymriah ALL治疗的认证治疗中心。 DF / BWCC还是Yescarta淋巴瘤的认证治疗中心。
-                雅各布森说：“同时提供Yescarta和Kymriah，使我们在治疗这些极具挑战性的淋巴瘤患者方面具有灵活性和选择余地。” CAR T细胞疗法的临床试验
-                ，例如其它类型的淋巴瘤，多发性骨髓瘤和白血病血液癌症是进行中在DF / BWCC，并且包括先前在治疗CAR T细胞疗法的临床试验，并与其它的免疫疗法的组合。 从Dana-Farber癌症研究所 了解有关
-                CAR T细胞疗法 和 淋巴瘤的 更多信息 。医院图片"
-            </p>
-            <p>
-                美国食品和药物管理局已经批准了针对某些淋巴瘤患者的称为Tisagenlecleucel（Kymriah）的CAR T细胞疗法 。该治疗适用于患有 复发性或难治性大B细胞淋巴瘤的 患者，
-                包括弥漫性大B细胞淋巴瘤（DLBCL），高级别B细胞淋巴瘤和滤泡性淋巴瘤引起的DLBCL。 Kymriah是一种高度专业化的个性化CAR
-                T细胞疗法，它使用经过特殊修饰的T细胞（人体免疫系统的一部分）来对抗癌症。从血液中收集患者的T细胞样本，然后对其进行修饰以在其表面产生一种称为嵌合抗原受体（CARs）的特殊结构。将这些CAR
-                T细胞重新注入患者体内后，新的受体使它们能够锁定在患者肿瘤细胞上的特定抗原上并杀死它们。
-                “我们正在取得非常重要的进步，我为能够为没有其他有效治疗方法的患者提供另一种选择感到兴奋和鼓舞，”达娜（Dana）免疫效应细胞治疗计划医学总监Caron A. Jacobson博士说。
-                -法伯/布莱根妇女癌症中心（DF / BWCC）。 DF / BWCC是经过认证的CAR T细胞疗法的治疗中心。
-                在针对具有治疗抗性或复发性弥漫性大B细胞淋巴瘤的患者的临床试验中，53％的患者对Kymriah有反应，其中40％的患者获得了完全反应-这意味着没有癌症迹象。
-                Kymriah先前已被批准用于25岁以下的B细胞急性淋巴细胞白血病（ALL）患者。去年，FDA还批准了另一种CAR T细胞疗法Yescarta用于侵袭性难治性成人非霍奇金淋巴瘤 。 DF /
-                BWCC和Dana-Farber / Boston儿童癌症和血液病中心是Kymriah ALL治疗的认证治疗中心。 DF / BWCC还是Yescarta淋巴瘤的认证治疗中心。
-                雅各布森说：“同时提供Yescarta和Kymriah，使我们在治疗这些极具挑战性的淋巴瘤患者方面具有灵活性和选择余地。” CAR T细胞疗法的临床试验
-                ，例如其它类型的淋巴瘤，多发性骨髓瘤和白血病血液癌症是进行中在DF / BWCC，并且包括先前在治疗CAR T细胞疗法的临床试验，并与其它的免疫疗法的组合。 从Dana-Farber癌症研究所 了解有关
-                CAR T细胞疗法 和 淋巴瘤的 更多信息 。医院图片"
-            </p>
+            <div v-html="CasesDetail.contents">
+                {{CasesDetail.contents}}}
+            </div>
             <!-- content -->
-            <ly-content-abc></ly-content-abc>
             <p class="next"><a href="#">上一篇：如何做好BE临床试验监查？（二）-菁语良研11</a></p>
             <p class="next"><a href="#">下一篇：如何做好BE临床试验监查？（二）-菁语良研11</a></p>
         </div>
@@ -45,17 +19,38 @@
 <script>
     import InfoIds from '@/info/InfoIds'
     import AllCountry from "@/info/AllCountry";
-    import ContentABC from "@/info/ContentABC";
     import LatestNews from "@/info/LatestNews";
 
     export default {
         name: "ly-info-content",
+        data: function () {
+            return {
+                CasesDetail: {},
+            }
+        },
         components: {
             'ly-info-ids': InfoIds,
             'ly-all-country': AllCountry,
-            'ly-content-abc': ContentABC,
             'ly-latest-news':LatestNews
+        },
+      mounted() {
+        this.renderData();
+      },
+
+      methods: {
+        renderData() {
+          let _self = this;
+          axios.all([
+            axios.get('/cases/detail?id=12'),
+          ]).then(axios.spread(function (
+            CasesDetail,
+          ) {
+            console.log(CasesDetail)
+            _self.CasesDetail = CasesDetail.data.data;
+          }));
         }
+
+      }
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>

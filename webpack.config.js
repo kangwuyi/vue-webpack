@@ -32,7 +32,7 @@ const doMode = doDev ? 'development' : 'production';
     name: "my-pool"
 };
 threadLoader.warmup(WorkerPool, ['vue-loader', 'babel-loader']);*/
-
+console.log(AXIOSHOST)
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }

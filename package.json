@@ -11,7 +11,7 @@
     "builddis": "export NODE_ENV=production && webpack --mode production --display-provided-exports --config webpack.config.js",
     "dlldev": "export NODE_ENV=development && webpack --mode development --config webpack.dll.config.js",
     "dllbuild": "export NODE_ENV=production && webpack --mode production --config webpack.dll.config.js",
-    "hot": "export NODE_ENV=development && webpack-dev-server --mode development --config webpack.config.js"
+    "hot": "export NODE_ENV=development HOST=localhost && webpack-dev-server --mode development --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",

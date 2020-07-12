@@ -75,8 +75,23 @@ app.get('/cases/list',jsonParser,(req, res) => {
         return res.send(reqData.data);
     });
 });
+app.get('/cases/detail',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/cases/detail?id=12').then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
+app.get('/drug/list',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/drug/list?page_size=5').then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
 app.get('/recommend/hospital',jsonParser,(req, res) => {
     axios.get('http://apiv2.chujingyi.cn/v2/hospital/recommend/hospital?url_name=mayo-clinic ').then((reqData) => {
+        return res.send(reqData.data);
+    });
+});
+app.get('/hospital/recommend/rand',jsonParser,(req, res) => {
+    axios.get('http://apiv2.chujingyi.cn/v2/hospital/recommend/rand?position=shengzi_hospital_list&page=1 ').then((reqData) => {
         return res.send(reqData.data);
     });
 });

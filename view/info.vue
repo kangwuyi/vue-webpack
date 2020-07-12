@@ -80,9 +80,6 @@
             <!-- content -->
             {{ArticleInfo.content}}
             <!-- content -->
-            <div class="content-abc">
-                <%- include info/content_abc.ejs -%>
-            </div>
             <p class="next"><a href="#">上一篇：如何做好BE临床试验监查？（二）-菁语良研11</a></p>
             <p class="next"><a href="#">下一篇：如何做好BE临床试验监查？（二）-菁语良研11</a></p>
         </div>

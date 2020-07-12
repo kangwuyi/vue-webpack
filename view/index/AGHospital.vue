@@ -2,27 +2,29 @@
     <div id="AGHospital">
         <div class="box">
             <div v-for="item in Home_best_hospital">
-                <h3 class="clearfix">
-                    <div class="t-icon"></div>
-                    <span class="t-title">{{item.name}}</span>
-                    <span class="t-info">{{item.nameen}}</span>
-                </h3>
-                <div class="clearfix">
-                    <!-- list -->
-                    <div class="img-list" v-for="childItem in item.child">
-                        <div>
-                            <img v-bind:src="childItem.picture" width="248" height="190"/>
-                            <span>第{{childItem.rank}}名</span>
+                <div v-if="item.child !==undefined && item.child.length > 0">
+                    <h3 class="clearfix">
+                        <div class="t-icon"></div>
+                        <span class="t-title">{{item.name}}</span>
+                        <span class="t-info">{{item.nameen}}</span>
+                    </h3>
+                    <div class="clearfix">
+                        <!-- list -->
+                        <div class="img-list" v-for="childItem in item.child">
+                            <div>
+                                <img v-bind:src="childItem.picture" width="248" height="190"/>
+                                <span>第{{childItem.rank}}名</span>
+                            </div>
+                            <strong>{{childItem.name}}</strong>
+                            <ul>
+                                <li v-for="departmentItem in childItem.rankings.slice(0,3)">
+                                    <span class="l-name">{{departmentItem.name}}</span>
+                                    <span class="l-num">第{{departmentItem.overall_rank_count}}名</span>
+                                </li>
+                            </ul>
                         </div>
-                        <strong>{{childItem.name}}</strong>
-                        <ul>
-                            <li v-for="departmentItem in childItem.rankings">
-                                <span class="l-name">{{departmentItem.name}}</span>
-                                <span class="l-num">第{{departmentItem.overall_rank_count}}名</span>
-                            </li>
-                        </ul>
+                        <!-- list -->
                     </div>
-                    <!-- list -->
                 </div>
             </div>
             <div class="mt40"></div>
@@ -68,7 +70,7 @@
                                 BPA[3].child.push(reqdata[i]);
                                 break;
                             default:
-                        }
+                     }
                     }
                     _self.Home_best_hospital = BPA;
                 });

@@ -4,11 +4,8 @@
             <div class="content-rank" v-for="item in RecommendHospital">
                 <div class="rank-title">{{item.country_map.title}}-{{item.name}}</div>
                 <ul class="rank-list clearfix">
-                    <li>
-                        <span class="l-name">肿瘤科</span><span class="l-num">第2名</span>
-                    </li>
-                    <li>
-                        <span class="l-name">乳腺外科</span><span class="l-num">第2名</span>
+                    <li v-for="rankItem in item.rankings">
+                        <span class="l-name">{{rankItem.name}}</span><span class="l-num">第{{rankItem.overall_rank_count}}名</span>
                     </li>
                 </ul>
             </div>

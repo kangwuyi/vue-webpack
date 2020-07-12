@@ -1,8 +1,8 @@
 <template>
     <div class="content-status">
-        <div class="clearfix">
+        <div class="clearfix" v-if="BospitalSearchFilters[0]">
             <span class="pull-left fs14 c-6 pt8">所有国家：</span>
-            <ul class="clearfix pl80">
+            <ul class="clearfix pl80" v-if="BospitalSearchFilters[0].options">
                 <li v-bind:class="item.value===isCountryValue?'act':''"
                     v-for="item in BospitalSearchFilters[0].options" :value="item.value"
                     @click="updateIsCountry($event)">
@@ -10,9 +10,9 @@
                 </li>
             </ul>
         </div>
-        <div class="clearfix">
+        <div class="clearfix" v-if="BospitalSearchFilters[1]">
             <span class="pull-left fs14 c-6 pt8">所有科室：</span>
-            <ul class="clearfix pl80">
+            <ul class="clearfix pl80" v-if="BospitalSearchFilters[1].options">
                 <li v-bind:class="item.value===isDepartmentValue?'act':''"
                     v-for="item in BospitalSearchFilters[1].options" :value="item.value"
                     @click="updateIsDepartment($event)">
@@ -39,7 +39,6 @@
         // 监听路由，每次进入页面调用方法，放在method里
         mounted() {
             this.renderData();
-            this.allCountryEvent();
         },
         methods: {
             renderData() {

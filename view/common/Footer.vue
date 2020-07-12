@@ -12,15 +12,17 @@
             <span>大幸砂田橋クリニック</span>
         </div>
         <div class="f-div box">
-            <strong class="w120">最新更新信息:</strong>
-            <span>大幸砂田橋クリニック</span>
-            <span>大幸砂田橋クリニック</span>
-            <span>大幸砂田橋クリニック</span>
+            <strong class="w120">最新医生信息:</strong>
+            <span v-for="item in HospitalRecommendRand.doctors"><a :href="item.url">{{item.name}}&nbsp;&nbsp;</a></span>
+        </div>
+        <div class="f-div box">
+            <strong class="w120">最新医院信息:</strong>
+            <span v-for="item in HospitalRecommendRand.hospitals"><a :href="item.url">{{item.name}}&nbsp;&nbsp;</a></span>
         </div>
         <div class="f-line box"></div>
         <div class="clearfix box p20">
             <ul class="f-ul">
-                <li v-for="item in Disease_footer_recommend"><a :key="item.url" v-bind:href="item.url"></a>{{item.name}}
+                <li v-for="item in Disease_footer_recommend"><a :href="item.url">{{item.name}}</a>
                 </li>
             </ul>
             <div class="pull-right w120">
@@ -40,7 +42,8 @@
         name: "ly-footer",
         data: function () {
             return {
-                Disease_footer_recommend: {}
+                Disease_footer_recommend: {},
+              HospitalRecommendRand:{}
             }
         },
         mounted() {
@@ -49,12 +52,20 @@
         methods: {
             renderData() {
                 let _self = this;
-                axios.get('/disease/footer_recommend').then((req) => {
-                    _self.Disease_footer_recommend = req.data.data;
-                }).catch((error)=>{
-                    console.log(error);
-                    _self.errorMessage = error;
-                });
+              axios.all([
+                axios.get('/disease/footer_recommend'),
+                axios.get('/hospital/recommend/rand'),
+              ]).then(axios.spread(function (
+                Disease_footer_recommend,
+                HospitalRecommendRand,
+              ) {
+                _self.Disease_footer_recommend = Disease_footer_recommend.data.data;
+                console.log(HospitalRecommendRand)
+                _self.HospitalRecommendRand = HospitalRecommendRand.data.data;
+              })).catch((error)=>{
+                console.log(error);
+                _self.errorMessage = error;
+              });
             },
         },
     }

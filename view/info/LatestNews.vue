@@ -35,12 +35,11 @@
                 <a href="#" target="_blank">More>></a>
             </h2>
             <ul>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
-                <li><a href="#" target="_blank" class="fs12"><span>></span> 六盘水市人民医院诚聘各层次医疗人才。</a></li>
+                <li v-for="item in DrugList" :id="item.id">
+                    <a target="_blank" class="fs12">
+                        <span>></span> {{item.country_map.title}} - {{item.drug_name}}
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -51,7 +50,7 @@
         data: function () {
             return {
                 ArticleList: {},
-                CasesList: {},
+                DrugList: {},
             }
         },
         // 监听路由，每次进入页面调用方法，放在method里
@@ -64,15 +63,14 @@
                 let _self = this;
                 axios.all([
                     axios.get('/article/list?page_size=5'),
-                    axios.get('/cases/list?page_size=5'),
+                    axios.get('/drug/list?page_size=5'),
                 ]).then(axios.spread(function (
                     ArticleList,
-                    CasesList,
+                    DrugList,
                 ) {
                     _self.ArticleList = ArticleList.data.data;
-                    _self.CasesList = CasesList.data.data.list;
+                    _self.DrugList = DrugList.data.data.list;
                 }));
-                return console.log('get data end');
             }
 
         }
